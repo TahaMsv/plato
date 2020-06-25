@@ -8,24 +8,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/formContainer"
+        android:id="@+id/signInFormContainer"
         android:paddingBottom="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center">
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/signInUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="12"
-            android:hint="Your Username"
+            android:hint="Username"
             android:inputType="textPersonName" />
 
 
 
         <EditText
-            android:id="@+id/userPassword"
+            android:id="@+id/signInUserPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
@@ -33,24 +33,17 @@
             android:hint="Password"
             android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/userPasswordRepeat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
-            android:ems="12"
-            android:hint="Repeat Password"
-            android:inputType="textPassword" />
+
     </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/formContainer"
+        android:layout_alignBottom="@id/signInFormContainer"
         android:layout_centerHorizontal="true"
         android:background="@drawable/signupsigninbuttonenable"
         android:textColor="#fff"
         android:enabled="false"
-        android:id="@+id/signUpBtn"
-        android:text="Sign Up" />
+        android:id="@+id/signInBtn"
+        android:text="Sign In" />
 </RelativeLayout>

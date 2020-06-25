@@ -81,7 +81,7 @@ public class SignUp extends AppCompatActivity {
         }
     };
     private void init() {
-        inputUserName=findViewById(R.id.userId);
+        inputUserName=findViewById(R.id.username);
         inputPassWord=findViewById(R.id.userPassword);
         inputPassWordRepeat =findViewById(R.id.userPasswordRepeat);
         signUpButton=findViewById(R.id.signUpBtn);
