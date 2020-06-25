@@ -43,7 +43,6 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/signupsigninbuttonenable"
         android:textColor="#fff"
-        android:enabled="false"
         android:id="@+id/signInBtn"
         android:text="Sign In" />
 </RelativeLayout>
