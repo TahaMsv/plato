@@ -48,8 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/formContainer"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/signupsigninbitton"
+        android:background="@drawable/signupsigninbuttonenable"
         android:textColor="#fff"
-
+        android:enabled="false"
+        android:id="@+id/signUpBtn"
         android:text="Sign Up" />
 </RelativeLayout>
