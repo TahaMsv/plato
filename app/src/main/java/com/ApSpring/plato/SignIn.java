@@ -28,7 +28,8 @@ public class SignIn extends AppCompatActivity {
                 String username = inputUsername.getText().toString().trim();
                 String passWord = inputPassWord.getText().toString().trim();
                 if (isValidInputs(username, passWord)) {
-
+                    Intent intent=new Intent(SignIn.this,MainPage.class);
+                    startActivity(intent);
                 }
             }
         });

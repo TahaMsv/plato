@@ -2,6 +2,7 @@ package com.ApSpring.plato;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,8 @@ public class SignUp extends AppCompatActivity {
                 String password=inputPassWord.getText().toString().trim();
                 String passwordRepeat=inputPassWordRepeat.getText().toString().trim();
                 Toast.makeText(SignUp.this,"It's ok",Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(SignUp.this,MainPage.class);
+                startActivity(intent);
             }
         });
 
