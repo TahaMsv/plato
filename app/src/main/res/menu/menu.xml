@@ -9,15 +9,15 @@
         android:icon="@drawable/ic_message"
         android:title="Chat" />
     <item
-        android:id="@+id/people"
-        android:icon="@drawable/ic_people"
-        android:title="People" />
+        android:id="@+id/friends"
+        android:icon="@drawable/ic_friends"
+        android:title="Friends" />
     <item
         android:id="@+id/game"
         android:icon="@drawable/ic_game"
         android:title="Game" />
     <item
-        android:id="@+id/profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_settings"
+        android:title="Setting" />
 </menu>
