@@ -48,7 +48,7 @@ public class FriendsFragment extends Fragment {
         friendAdapter =new FriendsAdapter(friendsList,getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        fab = v.findViewById(R.id.floatingActionBar);
+        fab = v.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

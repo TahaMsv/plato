@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/relativeL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:id="@+id/friendsProfileImage"
+            android:layout_width="61dp"
+            android:layout_height="74dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_home"></ImageView>
+
+        <TextView
+            android:id="@+id/friendsUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/friendsProfileImage"
+            android:layout_marginStart="29dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginRight="10dp"
+            android:layout_toEndOf="@+id/friendsProfileImage"
+            android:layout_toRightOf="@+id/friendsProfileImage"
+            android:singleLine="true"
+            android:text="Taha mousavi"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/lastMessageDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/friendsUserName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="-27dp"
+            android:text="25/4/1399"
+            android:textColor="#000000" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
