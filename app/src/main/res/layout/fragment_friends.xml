@@ -6,7 +6,6 @@
     tools:context=".HomeFragment"
     android:background="@color/lightBittersweet">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
     <androidx.recyclerview.widget.RecyclerView
