@@ -1,7 +1,9 @@
 package com.ApSpring.plato;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,7 @@ public class FriendsFragment extends Fragment {
     RecyclerView recyclerView;
     List <ExampleFriend> friendsList;
     FriendsAdapter friendAdapter;
+    FloatingActionButton fab;
 
 
     public FriendsFragment() {
@@ -42,6 +48,30 @@ public class FriendsFragment extends Fragment {
         friendAdapter =new FriendsAdapter(friendsList,getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        fab = v.findViewById(R.id.floatingActionBar);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_IDLE:
+                        fab.show();
+                        break;
+                    default:
+                        fab.hide();
+                        break;
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        };
+        recyclerView.clearOnScrollListeners();
+        recyclerView.addOnScrollListener(scrollListener);
+
 
 
 
