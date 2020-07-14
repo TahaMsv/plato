@@ -23,7 +23,7 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         tv=findViewById(R.id.textView);
-        btn=findViewById(R.id.button);
+        btn=findViewById(R.id.profileButton);
         fl=findViewById(R.id.frameLayout);
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
