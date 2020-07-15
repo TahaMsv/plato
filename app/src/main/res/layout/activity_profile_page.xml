@@ -21,4 +21,11 @@
         android:id="@+id/account_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/testText"
+        android:layout_height="wrap_content"
+        android:text="teescc"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

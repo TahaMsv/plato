@@ -17,7 +17,7 @@ public class accountRecyclerViewAdapter extends RecyclerView.Adapter<accountRecy
     private String[] recyclerViewAccountTitles;
     private String[] recyclerViewAccountDescriptions;
 
-    private Context context;
+    Context context;
 
     public accountRecyclerViewAdapter(Context context, String[] accountTitles, String[] accountDescriptions){
         this.context = context;
@@ -43,6 +43,7 @@ public class accountRecyclerViewAdapter extends RecyclerView.Adapter<accountRecy
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ChangeUserName.class);
                     context.startActivity(intent);
+
                 }
             });
         }else if (position == 1) {
