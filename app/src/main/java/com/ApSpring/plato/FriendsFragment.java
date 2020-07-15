@@ -48,6 +48,13 @@ public class FriendsFragment extends Fragment {
         friendAdapter =new FriendsAdapter(friendsList,getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent=new Intent(getActivity(),ChatScreenActivity.class);
+                startActivity(intent);
+            }
+        });
         fab = v.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

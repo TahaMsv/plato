@@ -1,5 +1,6 @@
 package com.ApSpring.plato;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -42,6 +43,13 @@ public class ChatFragment extends Fragment {
         friendAdapter =new FriendsAdapter(chatList,getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent=new Intent(getActivity(),ChatScreenActivity.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 

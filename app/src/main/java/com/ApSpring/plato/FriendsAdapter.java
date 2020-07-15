@@ -17,10 +17,18 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
 
     List<ExampleFriend> mList;
     Context context;
+    private FriendsAdapter.onItemClickListener listener;
 
     public FriendsAdapter(List<ExampleFriend> mList, Context context) {
         this.mList = mList;
         this.context = context;
+    }
+    public interface onItemClickListener {
+        void onItemClick(int position);
+
+    }
+    public void setOnItemClickListener(FriendsAdapter.onItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -54,6 +62,17 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
             super(itemView);
             username=itemView.findViewById(R.id.friendsUserName);
             profileImage=itemView.findViewById(R.id.friendsProfileImage);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
