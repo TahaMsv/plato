@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.ApSpring.plato.signinsignup.SignIn;
+import com.ApSpring.plato.signinsignup.SignUp;
+
 public class MainActivity extends AppCompatActivity {
     Button signUpButton;
     Button signInButton;
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,SignIn.class);
+                Intent intent=new Intent(MainActivity.this, SignIn.class);
                 startActivity(intent);
             }
         });

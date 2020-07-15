@@ -1,15 +1,15 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.signinsignup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.ApSpring.plato.MainPage;
+import com.ApSpring.plato.R;
 
 public class SignIn extends AppCompatActivity {
     EditText inputUsername, inputPassWord;
@@ -28,7 +28,7 @@ public class SignIn extends AppCompatActivity {
                 String username = inputUsername.getText().toString().trim();
                 String passWord = inputPassWord.getText().toString().trim();
                 if (isValidInputs(username, passWord)) {
-                    Intent intent=new Intent(SignIn.this,MainPage.class);
+                    Intent intent=new Intent(SignIn.this, MainPage.class);
                     startActivity(intent);
                 }
             }

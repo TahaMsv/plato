@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.friends;
 
 import android.widget.ImageView;
 import android.widget.TextView;

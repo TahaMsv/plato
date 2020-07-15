@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.signinsignup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.ApSpring.plato.MainPage;
+import com.ApSpring.plato.R;
 
 public class SignUp extends AppCompatActivity {
     EditText inputUserName,inputPassWord, inputPassWordRepeat;
@@ -29,7 +32,7 @@ public class SignUp extends AppCompatActivity {
                 String password=inputPassWord.getText().toString().trim();
                 String passwordRepeat=inputPassWordRepeat.getText().toString().trim();
                 Toast.makeText(SignUp.this,"It's ok",Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(SignUp.this,MainPage.class);
+                Intent intent=new Intent(SignUp.this, MainPage.class);
                 startActivity(intent);
             }
         });

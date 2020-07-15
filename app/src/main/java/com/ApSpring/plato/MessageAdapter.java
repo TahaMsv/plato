@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ApSpring.plato.chat.Chat;
+
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {

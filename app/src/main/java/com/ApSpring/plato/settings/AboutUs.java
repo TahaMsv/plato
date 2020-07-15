@@ -1,9 +1,11 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.ApSpring.plato.R;
 
 public class AboutUs extends AppCompatActivity {
     TextView textView;

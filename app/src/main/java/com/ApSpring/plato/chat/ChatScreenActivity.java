@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.chat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
+
+import com.ApSpring.plato.MessageAdapter;
+import com.ApSpring.plato.R;
+import com.ApSpring.plato.chat.Chat;
 
 import java.util.ArrayList;
 import java.util.List;

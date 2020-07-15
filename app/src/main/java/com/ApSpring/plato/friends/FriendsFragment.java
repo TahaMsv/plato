@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.ApSpring.plato.R;
+import com.ApSpring.plato.chat.ChatScreenActivity;
+import com.ApSpring.plato.friends.ExampleFriend;
+import com.ApSpring.plato.friends.FriendsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public class FriendsFragment extends Fragment {
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent=new Intent(getActivity(),ChatScreenActivity.class);
+                Intent intent=new Intent(getActivity(), ChatScreenActivity.class);
                 startActivity(intent);
             }
         });

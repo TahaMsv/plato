@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.ApSpring.plato.chat.ChatFragment;
+import com.ApSpring.plato.friends.FriendsFragment;
+import com.ApSpring.plato.settings.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainPage extends AppCompatActivity {

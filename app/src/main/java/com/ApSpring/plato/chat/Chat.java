@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.chat;
 
 public class Chat {
     private String message;
