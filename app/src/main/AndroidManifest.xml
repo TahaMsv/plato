@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".settings.AboutUs"></activity>
+        <activity android:name=".profile.ChangeBioActivity"></activity>
+        <activity android:name=".profile.ChangePasswordActivity" />
+        <activity android:name=".profile.ChangeUserName" />
+        <activity android:name=".settings.AboutUs" />
         <activity android:name=".profile.ProfilePage" />
         <activity android:name=".chat.ChatScreenActivity" />
         <activity android:name=".MainPage" />
