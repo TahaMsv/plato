@@ -3,4 +3,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="Account">
+        <item>username</item>
+        <item>password</item>
+        <item>Bio</item>
+    </string-array>
+    <string-array name="description">
+        <item>Tap to edit username</item>
+        <item>Tap to edit password</item>
+        <item>Tap to edit Bio</item>
+    </string-array>
 </resources>

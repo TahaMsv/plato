@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".settings.AboutUs"></activity>
-        <activity android:name=".ProfilePage" />
+        <activity android:name=".profile.ProfilePage" />
         <activity android:name=".chat.ChatScreenActivity" />
         <activity android:name=".MainPage" />
         <activity android:name=".signinsignup.SignIn" />
