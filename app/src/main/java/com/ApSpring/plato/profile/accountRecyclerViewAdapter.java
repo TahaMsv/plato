@@ -5,18 +5,19 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ApSpring.plato.R;
+import com.ApSpring.plato.friends.FriendsAdapter;
 
 public class accountRecyclerViewAdapter extends RecyclerView.Adapter<accountRecyclerViewAdapter.MyViewHolder> {
 
     private String[] recyclerViewAccountTitles;
     private String[] recyclerViewAccountDescriptions;
-
     Context context;
 
     public accountRecyclerViewAdapter(Context context, String[] accountTitles, String[] accountDescriptions){

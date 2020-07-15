@@ -15,4 +15,13 @@
         android:textSize="30dp"
         android:textColor="#ffffff"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="X-O"
+        android:id="@+id/X_OButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        />
+
 </RelativeLayout>

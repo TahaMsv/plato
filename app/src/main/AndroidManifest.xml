@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile.ChangeBioActivity"></activity>
+        <activity android:name=".Games.TicTocToe"></activity>
+        <activity android:name=".profile.ChangeBioActivity" />
         <activity android:name=".profile.ChangePasswordActivity" />
         <activity android:name=".profile.ChangeUserName" />
         <activity android:name=".settings.AboutUs" />

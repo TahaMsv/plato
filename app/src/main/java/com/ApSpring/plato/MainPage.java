@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.ApSpring.plato.Games.GameFragment;
 import com.ApSpring.plato.chat.ChatFragment;
 import com.ApSpring.plato.friends.FriendsFragment;
 import com.ApSpring.plato.profile.ProfilePage;
