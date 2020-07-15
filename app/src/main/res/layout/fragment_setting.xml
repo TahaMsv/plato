@@ -4,15 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment"
-    android:background="@color/PeachPuff">
+    android:background="#F3F0ED">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Setting"
-        android:textSize="30dp"
-        android:textColor="#ffffff"/>
+        android:text="About Us"
+        android:id="@+id/aboutUs"
+        android:background="@drawable/settingsborder"
+        android:layout_marginTop="200dp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:background="@drawable/settingsborder"
+        android:layout_marginTop="300dp"
+        android:id="@+id/logOut"
+        />
+
 
 </RelativeLayout>
