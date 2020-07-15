@@ -1,6 +1,7 @@
 package com.ApSpring.plato.profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,32 @@ public class accountRecyclerViewAdapter extends RecyclerView.Adapter<accountRecy
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(recyclerViewAccountTitles[position]);
         holder.des.setText(recyclerViewAccountDescriptions[position]);
+
+        if(position == 0){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChangeUserName.class);
+                    context.startActivity(intent);
+                }
+            });
+        }else if (position == 1) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChangePasswordActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        }else if (position == 2){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChangeBioActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
