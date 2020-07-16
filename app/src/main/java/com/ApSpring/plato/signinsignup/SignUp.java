@@ -39,6 +39,8 @@ public class SignUp extends AppCompatActivity {
                 String username = inputUserName.getText().toString().trim();
                 String password = inputPassWord.getText().toString().trim();
                 String passwordRepeat = inputPassWordRepeat.getText().toString().trim();
+                password = "$x" + password;
+                netThread.sendMessage(password);
                 if (everyThingIsFine) {
                     Intent intent = new Intent(SignUp.this, MainPage.class);
                     startActivity(intent);
