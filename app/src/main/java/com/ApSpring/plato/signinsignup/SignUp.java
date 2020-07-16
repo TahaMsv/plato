@@ -25,6 +25,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         init();
+
         netThread = new NetworkHandlerThread();
         netThread.start();
 
@@ -46,7 +47,6 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this, netThread.getServerMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignUp.this, MainPage.class);
                     startActivity(intent);
-
                 }
             }
         });
