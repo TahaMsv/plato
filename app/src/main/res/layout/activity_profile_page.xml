@@ -4,28 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F0ED"
+    android:background="#C8B6BF"
     tools:context=".profile.ProfilePage">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Account"
-        android:textSize="25sp"
-        android:textColor="@color/CGBlue"
-        android:background="#fff"
-        android:paddingLeft="10dp"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="32dp"
-        android:id="@+id/account_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/testText"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#B64C8C"
+        android:id="@+id/profileRL1">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="179dp"
+            android:layout_height="223dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="117dp"
+            android:layout_marginTop="-9dp"
+            android:layout_marginEnd="115dp"
+            android:src="@drawable/profile1" />
+
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="64dp"
+            android:ems="10"
+            android:text="Taha mousavi"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="30dp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/changeUsernameBtn"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="244dp"
+            android:background="@drawable/background_left"
+            android:text="Change username" />
+
+        <Button
+            android:id="@+id/changePasswordBtn"
+            android:layout_width="137dp"
+            android:layout_height="51dp"
+            android:layout_alignTop="@+id/changeUsernameBtn"
+            android:layout_alignBottom="@+id/changeUsernameBtn"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/background_left"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="243dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="29dp"
+            android:layout_marginBottom="1dp"
+            android:text="Change password" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/changePhotoFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="276dp"
+            android:layout_marginTop="125dp"
+            android:background="#977E7E"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="teescc"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/profileRL1"
+
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#BFB8B8"
+            />
+    </RelativeLayout>
+
+
 </RelativeLayout>

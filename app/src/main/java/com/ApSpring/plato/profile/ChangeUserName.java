@@ -27,8 +27,9 @@ public class ChangeUserName extends AppCompatActivity {
             public void onClick(View v) {
                 userUsername = newUsername.getText().toString();
                 Intent intent = new Intent();
-                intent.putExtra("username", userUsername);
-                startActivity(intent);
+                intent.putExtra("newUsername", userUsername);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
