@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ApSpring.plato.MainPage;
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
 public class SignUp extends AppCompatActivity {
@@ -38,12 +39,7 @@ public class SignUp extends AppCompatActivity {
                 String username = inputUserName.getText().toString().trim();
                 String password = inputPassWord.getText().toString().trim();
                 String passwordRepeat = inputPassWordRepeat.getText().toString().trim();
-                netThread.sendMessage(username);
-                while (netThread.getServerMessage().equals("")) {
-
-                }
                 if (everyThingIsFine) {
-                    Toast.makeText(SignUp.this, netThread.getServerMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(SignUp.this, MainPage.class);
                     startActivity(intent);
                 }

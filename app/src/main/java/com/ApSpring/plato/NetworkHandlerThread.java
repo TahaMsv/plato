@@ -1,4 +1,4 @@
-package com.ApSpring.plato.signinsignup;
+package com.ApSpring.plato;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
