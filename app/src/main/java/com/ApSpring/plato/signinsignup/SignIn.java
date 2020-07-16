@@ -11,6 +11,9 @@ import android.widget.EditText;
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.R;
 
+import java.io.IOException;
+import java.net.Socket;
+
 public class SignIn extends AppCompatActivity {
     EditText inputUsername, inputPassWord;
     Button signInButton;
