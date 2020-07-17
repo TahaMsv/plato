@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -27,17 +28,24 @@ public class ChatScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
-
+        mChat =new ArrayList<>();
         sendButton=findViewById(R.id.sendButton);
         inputMessage=findViewById(R.id.text_send);
-        recyclerView=findViewById(R.id.chatMessages);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView = findViewById(R.id.chatMessages);
+        messageAdapter =new MessageAdapter (mChat,this);
+        recyclerView.setAdapter(messageAdapter);
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message=inputMessage.getText().toString().trim();
+                Chat chat=new Chat(message,"you","me");
+                mChat.add(chat);
+            }
+        });
 
     }
-    private void readMessage(String myId,String userId,String imageUrl){
+    private void readMessage(String myId,String userId){
         mChat =new ArrayList<>();
 
     }

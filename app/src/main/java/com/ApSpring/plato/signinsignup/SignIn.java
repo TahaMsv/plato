@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ApSpring.plato.MainPage;
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.net.Socket;
 public class SignIn extends AppCompatActivity {
     EditText inputUsername, inputPassWord;
     Button signInButton;
+    private NetworkHandlerThread netThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +26,29 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         init();
+        netThread = new NetworkHandlerThread();
+        netThread.start();
+
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = inputUsername.getText().toString().trim();
                 String passWord = inputPassWord.getText().toString().trim();
-                if (isValidInputs(username, passWord)) {
+                if (isValidInputs(username, passWord) && exist(username,passWord)) {
                     Intent intent=new Intent(SignIn.this, MainPage.class);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private boolean exist(String username, String passWord) {
+        netThread.sendMessage(username);
+        netThread.sendMessage(passWord);
+        if(netThread.getServerMessage().startsWith("OK"))
+            return true;
+        return false;
     }
 
 

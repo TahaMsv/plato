@@ -23,10 +23,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     String imageUrl;
 
 
-    public MessageAdapter(List<Chat> mChat, Context context, String imageUrl) {
+    public MessageAdapter(List<Chat> mChat, Context context) {
         this.mChat = mChat;
         this.context = context;
-        this.imageUrl = imageUrl;
+      ///  this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -49,12 +49,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
         Chat chat=mChat.get(position);
         holder.showMessage.setText(chat.getMessage());
-        if(imageUrl.equals("default")){
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-        }
-        else {
-            
-        }
 
     }
 
@@ -72,5 +66,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
             showMessage = itemView.findViewById(R.id.friendsUserName);
             profileImage = itemView.findViewById(R.id.friendsProfileImage);
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Chat chat=mChat.get(position);
+        if(chat.getSender().equals("me"))
+            return MSG_TYPE_RIGHT;
+        return MSG_TYPE_LEFT;
     }
 }
