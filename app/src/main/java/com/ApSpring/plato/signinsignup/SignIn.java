@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ApSpring.plato.MainPage;
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.net.Socket;
 public class SignIn extends AppCompatActivity {
     EditText inputUsername, inputPassWord;
     Button signInButton;
+    private NetworkHandlerThread netThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         init();
+
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,4 +9,9 @@
     <color name="PeachPuff">#FED9B7</color>
     <color name="Bittersweet">#F07167</color>
     <color name="lightBittersweet">#F69790</color>
+    <color name="HangManPrimaryColor">#9C27B0</color>
+    <color name="HangManPrimaryDarkColor">#7B1FA2</color>
+    <color name="HangManColorAccent">#F7F7F7</color>
+    <color name="HangManColorSecondary">#D7CCC8</color>
+
 </resources>

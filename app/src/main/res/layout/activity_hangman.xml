@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/HangManPrimaryColor"
+    android:layout_height="match_parent"
+    tools:context=".Games.Hangman">
+
+
+    <TextView
+        android:id="@+id/hangManTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold|italic"
+        android:layout_marginTop="60dp"
+        android:text="Hang Man"
+        android:textColor="@color/HangManColorAccent"
+        android:textSize="25sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/wordToBeGuessed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:textColor="@color/HangManColorAccent"
+        android:gravity="center"
+        android:textSize="23sp"
+        android:text="My Word"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hangManTitle" />
+
+    <EditText
+        android:id="@+id/userWordsGuesses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:maxLength="1"
+        android:textColor="@color/HangManColorSecondary"
+        android:textColorHint="@color/HangManColorSecondary"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:hint="Input letter"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wordToBeGuessed" />
+
+    <TextView
+        android:id="@+id/lettersUsed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/HangManColorAccent"
+        android:textColorHint="@color/HangManColorSecondary"
+        android:layout_marginTop="60dp"
+        android:text="Letters used: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userWordsGuesses" />
+
+    <TextView
+        android:id="@+id/numbersRemain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:textStyle="bold"
+        android:textColor="@color/HangManColorAccent"
+        android:gravity="center"
+        android:text=" X X X X X"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lettersUsed" />
+
+    <Button
+        android:id="@+id/hangManReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="64dp"
+        android:text="Reset"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        android:background="@color/HangManColorSecondary"
+        android:textColor="@color/HangManPrimaryDarkColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numbersRemain" />
+</androidx.constraintlayout.widget.ConstraintLayout>
