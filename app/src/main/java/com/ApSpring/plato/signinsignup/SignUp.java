@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,11 +47,14 @@ public class SignUp extends AppCompatActivity {
                     while (netThread.getServerMessage().equals("")) {
                     }
                     if (netThread.getServerMessage().startsWith("OK")) {
+                        Log.i("Server message", " OK ");
                         everyThingIsFine = true;
                     } else if (netThread.getServerMessage().startsWith("err")) {
+                        Log.i("Server message", " Error ");
                         inputUserName.setError("Username already taken");
                     }
                 }
+
             }
         });
         inputPassWord.setOnFocusChangeListener(new View.OnFocusChangeListener() {
