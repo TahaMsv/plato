@@ -26,6 +26,9 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         init();
+        netThread = new NetworkHandlerThread();
+        netThread.start();
+
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -33,12 +36,20 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View v) {
                 String username = inputUsername.getText().toString().trim();
                 String passWord = inputPassWord.getText().toString().trim();
-                if (isValidInputs(username, passWord)) {
+                if (isValidInputs(username, passWord) && exist(username,passWord)) {
                     Intent intent=new Intent(SignIn.this, MainPage.class);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private boolean exist(String username, String passWord) {
+        netThread.sendMessage(username);
+        netThread.sendMessage(passWord);
+        if(netThread.getServerMessage().startsWith("OK"))
+            return true;
+        return false;
     }
 
 
