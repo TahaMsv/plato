@@ -32,6 +32,8 @@ public class SignUp extends AppCompatActivity {
         netThread = new NetworkHandlerThread();
         netThread.start();
 
+        netThread.sendMessage("signUpMode");
+
 
         inputUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -89,11 +91,17 @@ inputUserName.addTextChangedListener(signUpTextWatcher);
                 String username = inputUserName.getText().toString().trim();
                 String password = inputPassWord.getText().toString().trim();
                 String passwordRepeat = inputPassWordRepeat.getText().toString().trim();
-                password = "$x" + password;
-                netThread.sendMessage(password);
-                if (everyThingIsFine) {
-                    Intent intent = new Intent(SignUp.this, MainPage.class);
-                    startActivity(intent);
+                if(!username.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty()){
+                    if(password.equals(passwordRepeat)){
+                        netThread.sendMessage("username:"+username);
+                        netThread.sendMessage("password:"+password);
+                        netThread.sendMessage("SignUpButton");
+                        Intent intent = new Intent(SignUp.this, MainPage.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        inputPassWordRepeat.setError("Not equal to the password");
+                    }
                 }
             }
         });
