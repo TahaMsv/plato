@@ -31,9 +31,6 @@ public class SignUp extends AppCompatActivity {
         netThread = new NetworkHandlerThread();
         netThread.start();
 
-        String username = inputUserName.getText().toString().trim();
-        String passWordRepeat = inputPassWordRepeat.getText().toString().trim();
-        String password = inputPassWord.getText().toString().trim();
 
         inputUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -43,8 +40,9 @@ public class SignUp extends AppCompatActivity {
                     String username = inputUserName.getText().toString().trim();
                     if (username.isEmpty()) {
                         inputUserName.setError("Enter  your username");
+                    }else {
+                        netThread.sendMessage("username:"+username);
                     }
-                    netThread.sendMessage(username);
                     while (netThread.getServerMessage().equals("")) {
                     }
                     if (netThread.getServerMessage().startsWith("OK")) {
@@ -65,6 +63,9 @@ public class SignUp extends AppCompatActivity {
                         inputPassWord.setError("Enter your password");
                     } else if (password.length() <= 5) {
                         inputPassWord.setError("Must be more than 5 character");
+                    }
+                    else {
+                        netThread.sendMessage("password:"+password);
                     }
                 } else if (hasFocus) {
                     if (inputUserName.getText().toString().trim().isEmpty()) {
