@@ -21,7 +21,9 @@ public class NetworkHandlerThread extends Thread {
             dos = new DataOutputStream(socket.getOutputStream());
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             sendMode=true;
-            serverMessage = dis.readUTF();
+            while (true) {
+                serverMessage = dis.readUTF();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
