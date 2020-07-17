@@ -53,14 +53,15 @@ public class Hangman extends AppCompatActivity {
         });
 
         try {
-            wordInputStream = getAssets().open("hangman_database.txt");
+            wordInputStream = getAssets().open("hangman_database");
             input = new Scanner(wordInputStream);
             while (input.hasNext()) {
+
                 aword = input.nextLine();
                 hangManListOfWords.add(aword);
             }
         } catch (IOException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "e.getMessage()", Toast.LENGTH_SHORT).show();
         } finally {
             if (input != null)
                 input.close();
