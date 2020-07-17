@@ -30,51 +30,56 @@ public class SignIn extends AppCompatActivity {
         netThread.start();
 
 
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = inputUsername.getText().toString().trim();
                 String passWord = inputPassWord.getText().toString().trim();
-                if (isValidInputs(username, passWord) && exist(username,passWord)) {
-                    Intent intent=new Intent(SignIn.this, MainPage.class);
-                    startActivity(intent);
+
+                netThread.sendMessage("signInButton:");
+
+
+                netThread.sendMessage(username);
+                netThread.sendMessage(passWord);
+
+
+                if (isValidInputs(username, passWord)) {
+
+                    while (netThread.getServerMessage().equals("")) {
+
+                    }
+                    String serverMessage = netThread.getServerMessage();
+                    if (serverMessage.equals("okSignIn")) {
+                        Intent intent = new Intent(SignIn.this, MainPage.class);
+                        startActivity(intent);
+                    }else if (serverMessage.equals("wrongPassword")){
+                        inputPassWord.setError("Wrong password");
+                    }
+                    else if (serverMessage.equals("wrongUserName")){
+                        inputUsername.setError("Wrong Username");
+                    }
                 }
             }
         });
     }
 
-    private boolean exist(String username, String passWord) {
-        netThread.sendMessage(username);
-        netThread.sendMessage(passWord);
-        if(netThread.getServerMessage().startsWith("OK"))
-            return true;
-        return false;
-    }
+
 
 
     private boolean isValidInputs(String username, String passWord) {
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             inputUsername.setError("Username is empty");
             return false;
         }
-        if(passWord.isEmpty()){
+        if (passWord.isEmpty()) {
             inputPassWord.setError("Password is empty");
             return false;
         }
         /*username isn't exist : */
-        if(true){
-            inputUsername.setError(username+" does not exist");
-            return false;
-        }
-        /*  if the user is found and  the password is incorrect*/
-        if(true){
-            inputPassWord.setError("Wrong password");
-            return  false;
-        }
+
+        /* if the user is found and the password is incorrect*/
         return true;
     }
-
     private void init() {
         inputUsername = findViewById(R.id.signInUsername);
         inputPassWord = findViewById(R.id.signInUserPassword);
