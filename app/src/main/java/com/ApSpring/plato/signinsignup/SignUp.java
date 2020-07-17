@@ -90,8 +90,8 @@ inputUserName.addTextChangedListener(signUpTextWatcher);
                 String passwordRepeat = inputPassWordRepeat.getText().toString().trim();
                 if(!username.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty()){
                     if(password.equals(passwordRepeat)){
-                        netThread.sendMessage("username:"+username);
-                        netThread.sendMessage("password:"+password);
+//                        netThread.sendMessage("username:"+username);
+//                        netThread.sendMessage("password:"+password);
                         netThread.sendMessage("SignUpButton");
                         Intent intent = new Intent(SignUp.this, MainPage.class);
                         startActivity(intent);

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
@@ -37,25 +38,40 @@ public class SignIn extends AppCompatActivity {
                 String passWord = inputPassWord.getText().toString().trim();
 
                 netThread.sendMessage("signInButton:");
-
-
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 netThread.sendMessage(username);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 netThread.sendMessage(passWord);
 
 
                 if (isValidInputs(username, passWord)) {
 
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     while (netThread.getServerMessage().equals("")) {
-
                     }
                     String serverMessage = netThread.getServerMessage();
-                    if (serverMessage.equals("okSignIn")) {
+                    Toast.makeText(SignIn.this, serverMessage, Toast.LENGTH_SHORT).show();
+                    if (serverMessage.startsWith("ok")) {
                         Intent intent = new Intent(SignIn.this, MainPage.class);
                         startActivity(intent);
                     }else if (serverMessage.equals("wrongPassword")){
+                        serverMessage = "";
                         inputPassWord.setError("Wrong password");
                     }
                     else if (serverMessage.equals("wrongUserName")){
+                        serverMessage = "";
                         inputUsername.setError("Wrong Username");
                     }
                 }
