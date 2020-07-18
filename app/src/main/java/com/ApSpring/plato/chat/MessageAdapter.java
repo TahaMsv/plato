@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.chat;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ApSpring.plato.chat.Chat;
+import com.ApSpring.plato.R;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     public MessageAdapter(List<Chat> mChat, Context context) {
         this.mChat = mChat;
         this.context = context;
-      ///  this.imageUrl = imageUrl;
+        ///  this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -47,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        Chat chat=mChat.get(position);
+        Chat chat = mChat.get(position);
         holder.showMessage.setText(chat.getMessage());
 
     }
@@ -70,8 +70,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
     @Override
     public int getItemViewType(int position) {
-        Chat chat=mChat.get(position);
-        if(chat.getSender().equals("me"))
+        Chat chat = mChat.get(position);
+        if (chat.getSender().equals("me"))
             return MSG_TYPE_RIGHT;
         return MSG_TYPE_LEFT;
     }

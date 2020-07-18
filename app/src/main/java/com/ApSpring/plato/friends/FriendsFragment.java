@@ -39,6 +39,7 @@ public class FriendsFragment extends Fragment {
     FriendsAdapter friendAdapter;
     FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
+
     private NetworkHandlerThread netThread;
 
 
@@ -52,11 +53,10 @@ public class FriendsFragment extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         v = inflater.inflate(R.layout.fragment_friends, container, false);
-        Toast.makeText(getActivity(), "57", Toast.LENGTH_SHORT).show();
         netThread = new NetworkHandlerThread();
         netThread.start();
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
-        friendsList = new ArrayList<>();
+        friendsList = new ArrayList<ExampleFriend>();
         friendAdapter = new FriendsAdapter(friendsList, getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -64,8 +64,10 @@ public class FriendsFragment extends Fragment {
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                netThread.sendMessage("chatScreen" + friendsList.get(position).getUsername());
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
-                startActivityForResult(intent, ADD_FRIEND);
+//                startActivityForResult(intent, ADD_FRIEND);
+                startActivity(intent);
             }
         });
         fab = v.findViewById(R.id.floatingActionButton);
@@ -118,7 +120,7 @@ public class FriendsFragment extends Fragment {
         }
         allFriend = netThread.getServerMessage();
         allFriend = allFriend.substring(1);
-        String[] strings = allFriend.split("//$");
+        String[] strings = allFriend.split("\\+");
 
         for (int i = 0; i < strings.length; i++) {
             friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
