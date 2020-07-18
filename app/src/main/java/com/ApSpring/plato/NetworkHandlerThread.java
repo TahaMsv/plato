@@ -5,10 +5,16 @@ import android.util.Log;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NetworkHandlerThread extends Thread {
     private DataOutputStream dos;
+    private InputStream is;
+    private ObjectInputStream ois ;
     Socket socket;
     private String serverMessage = "";
     private static boolean sendMode;
@@ -20,6 +26,8 @@ public class NetworkHandlerThread extends Thread {
         try {
             socket = new Socket("192.168.1.4", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
+            is=socket.getInputStream();
+            ois=new ObjectInputStream(is);
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             sendMode = true;
             while (true) {
@@ -36,6 +44,11 @@ public class NetworkHandlerThread extends Thread {
         } else {
             return "";
         }
+    }
+
+    public List getServerList() throws IOException, ClassNotFoundException {
+        ArrayList al = (ArrayList)ois.readObject();
+        return  al;
     }
 
     public void sendModeMessage(String mode) {

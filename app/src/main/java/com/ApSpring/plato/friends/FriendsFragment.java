@@ -20,6 +20,7 @@ import com.ApSpring.plato.friends.ExampleFriend;
 import com.ApSpring.plato.friends.FriendsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class FriendsFragment extends Fragment {
 
     View v;
     RecyclerView recyclerView;
-    List <ExampleFriend> friendsList;
+    List<ExampleFriend> friendsList;
     FriendsAdapter friendAdapter;
     FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
@@ -53,22 +54,22 @@ public class FriendsFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_friends, container, false);
 
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
-        friendAdapter =new FriendsAdapter(friendsList,getContext());
+        friendAdapter = new FriendsAdapter(friendsList, getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent=new Intent(getActivity(), ChatScreenActivity.class);
-                startActivityForResult(intent,ADD_FRIEND);
+                Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
+                startActivityForResult(intent, ADD_FRIEND);
             }
         });
         fab = v.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),AddFriend.class);
-                startActivityForResult(intent,ADD_FRIEND);
+                Intent intent = new Intent(getActivity(), AddFriend.class);
+                startActivityForResult(intent, ADD_FRIEND);
             }
         });
         RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -89,8 +90,6 @@ public class FriendsFragment extends Fragment {
         recyclerView.addOnScrollListener(scrollListener);
 
 
-
-
         return v;
     }
 
@@ -101,20 +100,31 @@ public class FriendsFragment extends Fragment {
         netThread = new NetworkHandlerThread();
         netThread.start();
 
-        friendsList=new ArrayList<>();
-        friendsList=loadFriends();
+        friendsList = new ArrayList<>();
+        friendsList = loadFriends();
 
     }
 
     private List<ExampleFriend> loadFriends() {
-        List <ExampleFriend>friendsList=new ArrayList();
+        List<ExampleFriend> friendsList = new ArrayList();
+        List<String> names = new ArrayList<>();
         netThread.sendMessage("friendList:");
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return  friendsList;
+        try {
+            names = netThread.getServerList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < names.size(); i++) {
+            friendsList.add(new ExampleFriend(R.drawable.ic_profile, names.get(i)));
+        }
+        return friendsList;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -123,7 +133,7 @@ public class FriendsFragment extends Fragment {
             Bundle extras = data.getExtras();
             if (extras != null) {
                 String friendsUsername = extras.getString("friendsUsername");
-                friendsList.add(new ExampleFriend(R.drawable.ic_profile,friendsUsername));
+                friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsername));
             }
         }
 
