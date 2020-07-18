@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
 import com.ApSpring.plato.friends.ExampleFriend;
@@ -36,6 +37,7 @@ public class FriendsFragment extends Fragment {
     FriendsAdapter friendAdapter;
     FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
+    private NetworkHandlerThread netThread;
 
 
     public FriendsFragment() {
@@ -95,19 +97,27 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        netThread = new NetworkHandlerThread();
+        netThread.start();
+
         friendsList=new ArrayList<>();
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdasd"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdfsdsdasd"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asd"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdassssssd"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdasasdad"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdas vsdfvd"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"as"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asasfasdasd"));
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdasd"));
+        friendsList=loadFriends();
 
     }
-     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    private List<ExampleFriend> loadFriends() {
+        List <ExampleFriend>friendsList=new ArrayList();
+        netThread.sendMessage("friendList:");
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return  friendsList;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
