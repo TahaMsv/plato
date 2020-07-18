@@ -2,6 +2,8 @@ package com.ApSpring.plato.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -46,19 +49,12 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        // Inflate the layout for this fragment
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         v = inflater.inflate(R.layout.fragment_friends, container, false);
         Toast.makeText(getActivity(), "57", Toast.LENGTH_SHORT).show();
         netThread = new NetworkHandlerThread();
         netThread.start();
-//        netThread.sendMessage("friendList:");
-//        try {
-//            Thread.sleep(200);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
         friendsList = new ArrayList<>();
         friendAdapter = new FriendsAdapter(friendsList, getContext());
@@ -113,23 +109,17 @@ public class FriendsFragment extends Fragment {
         friendsList = loadFriends();
     }
 
+
     private ArrayList<ExampleFriend> loadFriends() {
         ArrayList<ExampleFriend> friendsList = new ArrayList<>();
         List<String> names = new ArrayList<>();
-        Toast.makeText(getActivity(), "114", Toast.LENGTH_SHORT).show();
 
-        try {
-            names = netThread.getServerList();
-            Toast.makeText(getActivity(), "122", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        names = netThread.getServerList();
+
+
         for (int i = 0; i < names.size(); i++) {
             friendsList.add(new ExampleFriend(R.drawable.ic_profile, names.get(i)));
         }
-        Toast.makeText(getActivity(), "131", Toast.LENGTH_SHORT).show();
         return friendsList;
     }
 
