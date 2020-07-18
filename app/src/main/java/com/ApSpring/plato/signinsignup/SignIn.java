@@ -70,7 +70,7 @@ public class SignIn extends AppCompatActivity {
                         serverMessage = "";
                         inputPassWord.setError("Wrong password");
                     }
-                    else if (serverMessage.equals("wrongUserName")){
+                    else if (serverMessage.equals("wrongUsername")){
                         serverMessage = "";
                         inputUsername.setError("Wrong Username");
                     }
