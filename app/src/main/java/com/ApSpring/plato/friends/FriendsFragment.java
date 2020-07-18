@@ -22,6 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +35,7 @@ public class FriendsFragment extends Fragment {
     List <ExampleFriend> friendsList;
     FriendsAdapter friendAdapter;
     FloatingActionButton fab;
+    public static final int ADD_FRIEND = 1;
 
 
     public FriendsFragment() {
@@ -55,14 +58,15 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Intent intent=new Intent(getActivity(), ChatScreenActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,ADD_FRIEND);
             }
         });
         fab = v.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(getActivity(),AddFriend.class);
+                startActivityForResult(intent,ADD_FRIEND);
             }
         });
         RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -101,6 +105,17 @@ public class FriendsFragment extends Fragment {
         friendsList.add(new ExampleFriend(R.drawable.ic_profile,"as"));
         friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asasfasdasd"));
         friendsList.add(new ExampleFriend(R.drawable.ic_profile,"asdasd"));
+
+    }
+     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                String friendsUsername = extras.getString("friendsUsername");
+                friendsList.add(new ExampleFriend(R.drawable.ic_profile,friendsUsername));
+            }
+        }
 
     }
 }
