@@ -14,7 +14,7 @@ import java.util.List;
 public class NetworkHandlerThread extends Thread {
     private DataOutputStream dos;
     private InputStream is;
-    private ObjectInputStream ois ;
+    private ObjectInputStream ois;
     Socket socket;
     private String serverMessage = "";
     private static boolean sendMode;
@@ -24,10 +24,9 @@ public class NetworkHandlerThread extends Thread {
     public void run() {
         super.run();
         try {
-            socket = new Socket("192.168.1.4", 3000);
+            socket = new Socket("192.168.1.34", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
-            is=socket.getInputStream();
-            ois=new ObjectInputStream(is);
+            ois = new ObjectInputStream(socket.getInputStream());
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             sendMode = true;
             while (true) {
@@ -47,8 +46,8 @@ public class NetworkHandlerThread extends Thread {
     }
 
     public List getServerList() throws IOException, ClassNotFoundException {
-        ArrayList al = (ArrayList)ois.readObject();
-        return  al;
+        ArrayList al = (ArrayList) ois.readObject();
+        return al;
     }
 
     public void sendModeMessage(String mode) {
@@ -79,6 +78,7 @@ public class NetworkHandlerThread extends Thread {
             public void run() {
                 try {
                     dos.writeUTF(finalMessage);
+                    dos.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -87,4 +87,30 @@ public class NetworkHandlerThread extends Thread {
         senderThread.start();
 
     }
+    public void sendMessage2(String message){
+        final String finalMessage = message;
+
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DataOutputStream dataOutputStream = null;
+                try {
+                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    dataOutputStream.writeUTF(finalMessage);
+                    dataOutputStream.flush();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
 }
+
+

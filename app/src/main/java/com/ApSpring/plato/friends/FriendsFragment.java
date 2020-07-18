@@ -2,6 +2,10 @@ package com.ApSpring.plato.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,17 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
-import com.ApSpring.plato.friends.ExampleFriend;
-import com.ApSpring.plato.friends.FriendsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
@@ -54,8 +50,17 @@ public class FriendsFragment extends Fragment {
 
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_friends, container, false);
-
+        Toast.makeText(getActivity(), "57", Toast.LENGTH_SHORT).show();
+        netThread = new NetworkHandlerThread();
+        netThread.start();
+//        netThread.sendMessage("friendList:");
+//        try {
+//            Thread.sleep(200);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
+        friendsList = new ArrayList<>();
         friendAdapter = new FriendsAdapter(friendsList, getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -99,30 +104,23 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Toast.makeText(getActivity(),"103",Toast.LENGTH_SHORT).show();
-        netThread = new NetworkHandlerThread();
-        netThread.start();
-        Toast.makeText(getActivity(),"106",Toast.LENGTH_SHORT).show();
-        friendsList = new ArrayList<>();
-        friendsList = loadFriends();
-
-
     }
 
-    private List<ExampleFriend> loadFriends() {
-        List<ExampleFriend> friendsList = new ArrayList<>();
+    @Override
+    public void onStart() {
+        super.onStart();
+        netThread.sendMessage("friendList");
+        friendsList = loadFriends();
+    }
+
+    private ArrayList<ExampleFriend> loadFriends() {
+        ArrayList<ExampleFriend> friendsList = new ArrayList<>();
         List<String> names = new ArrayList<>();
-        netThread.sendMessage("friendList:");
-        Toast.makeText(getActivity(),"114",Toast.LENGTH_SHORT).show();
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Toast.makeText(getActivity(), "114", Toast.LENGTH_SHORT).show();
+
         try {
             names = netThread.getServerList();
-            Toast.makeText(getActivity(),"122",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "122", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -131,7 +129,7 @@ public class FriendsFragment extends Fragment {
         for (int i = 0; i < names.size(); i++) {
             friendsList.add(new ExampleFriend(R.drawable.ic_profile, names.get(i)));
         }
-        Toast.makeText(getActivity(),"131",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "131", Toast.LENGTH_SHORT).show();
         return friendsList;
     }
 
