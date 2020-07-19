@@ -1,5 +1,6 @@
 package com.ApSpring.plato.friends;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
@@ -50,17 +52,21 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
         v = inflater.inflate(R.layout.fragment_friends, container, false);
-        netThread = new NetworkHandlerThread();
-        netThread.start();
+        Toast.makeText(getActivity(), "on create view ", Toast.LENGTH_SHORT).show();
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
         friendsList = new ArrayList<ExampleFriend>();
         friendAdapter = new FriendsAdapter(friendsList, getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Toast.makeText(getActivity(), ""+MainActivity.counter, Toast.LENGTH_SHORT).show();
+        netThread = new NetworkHandlerThread();
+        if(MainActivity.counter==1) {
+            netThread.start();
+            MainActivity.counter++;
 
+        }
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -99,24 +105,23 @@ public class FriendsFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
+
 
     @Override
     public void onStart() {
         super.onStart();
-
-
+        Toast.makeText(getActivity(), "on start", Toast.LENGTH_SHORT).show();
+        loadFriends();
     }
 
 
+
     private void loadFriends() {
-        netThread.sendMessage("friendList");
+
+       netThread.sendMessage("friendList");
         try {
-            Thread.sleep(200);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -133,6 +138,7 @@ public class FriendsFragment extends Fragment {
                 friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
             }
         }
+        friendsList.add(new ExampleFriend(R.drawable.ic_profile, "taha"));
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

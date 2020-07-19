@@ -92,6 +92,17 @@ public class NetworkHandlerThread extends Thread {
         senderThread.start();
 
     }
+    public void finish(){
+        try {
+            dis.close();
+
+            dos.close();
+            ois.close();
+            socket.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 
