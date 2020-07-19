@@ -108,13 +108,18 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        netThread.sendMessage("friendList");
-        loadFriends();
+
+
     }
 
 
     private void loadFriends() {
-
+        netThread.sendMessage("friendList");
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String allFriend = "";
 
         allFriend = netThread.getServerMessage();
