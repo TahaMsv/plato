@@ -25,7 +25,7 @@ public class NetworkHandlerThread extends Thread {
     public void run() {
         super.run();
         try {
-            socket = new Socket("192.168.1.34", 3000);
+            socket = new Socket("192.168.1.4", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
             dis = new DataInputStream(socket.getInputStream());
@@ -41,9 +41,12 @@ public class NetworkHandlerThread extends Thread {
     }
 
     public String getServerMessage() {
+
         if (!this.serverMessage.equals("")) {
+
             return this.serverMessage;
         } else {
+
             return "";
         }
     }

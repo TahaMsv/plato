@@ -102,6 +102,7 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -115,15 +116,17 @@ public class FriendsFragment extends Fragment {
     private void loadFriends() {
 
         String allFriend = "";
-        while(netThread.getServerMessage().equals("")){
 
-        }
         allFriend = netThread.getServerMessage();
-        allFriend = allFriend.substring(1);
-        String[] strings = allFriend.split("\\+");
+        String[] strings = {};
+        if (!allFriend.isEmpty()) {
+            strings = allFriend.split("\\+");
+        }
 
         for (int i = 0; i < strings.length; i++) {
-            friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+            if (!strings[i].equals("")) {
+                friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+            }
         }
     }
 
