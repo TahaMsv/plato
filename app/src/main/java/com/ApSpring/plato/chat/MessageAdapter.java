@@ -26,7 +26,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     public MessageAdapter(List<Chat> mChat, Context context) {
         this.mChat = mChat;
         this.context = context;
-        ///  this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -36,11 +35,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             View view = layoutInflater.inflate(R.layout.chat_item_right, parent, false);
             return new MyViewHolder(view);
+        } else {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            View view = layoutInflater.inflate(R.layout.chat_item_left, parent, false);
+            return new MyViewHolder(view);
         }
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.chat_item_left, parent, false);
-
-        return new MyViewHolder(view);
 
     }
 
@@ -48,7 +47,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Chat chat = mChat.get(position);
-        holder.showMessage.setText(chat.getMessage());
+        if (chat.getMessage() != null)
+            holder.showMessage.setText(chat.getMessage());
+        else
+            holder.showMessage.setText("x");
 
     }
 
@@ -63,8 +65,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            showMessage = itemView.findViewById(R.id.friendsUserName);
-            profileImage = itemView.findViewById(R.id.friendsProfileImage);
+            showMessage = itemView.findViewById(R.id.show_message);
+//            profileImage = itemView.findViewById(R.id.friendsProfileImage);
         }
     }
 

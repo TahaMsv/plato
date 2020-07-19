@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ApSpring.plato.R;
@@ -29,15 +30,20 @@ public class ChatScreenActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
         inputMessage = findViewById(R.id.text_send);
         recyclerView = findViewById(R.id.chatMessages);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         messageAdapter = new MessageAdapter(mChat, this);
         recyclerView.setAdapter(messageAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = inputMessage.getText().toString().trim();
+                inputMessage.setText("");
                 Chat chat = new Chat(message, "you", "me");
                 mChat.add(chat);
+                messageAdapter.notifyDataSetChanged();
+                messageAdapter.notifyItemChanged(mChat.size() - 1);
             }
         });
 

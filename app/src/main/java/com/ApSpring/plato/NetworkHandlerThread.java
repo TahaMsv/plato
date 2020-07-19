@@ -25,15 +25,16 @@ public class NetworkHandlerThread extends Thread {
     public void run() {
         super.run();
         try {
-            socket = new Socket("192.168.1.4", 3000);
+            socket = new Socket("192.168.1.34", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
             dis = new DataInputStream(socket.getInputStream());
             sendMode = true;
             while (true) {
                 serverMessage = dis.readUTF();
-                if (ois.readObject() instanceof ArrayList)
-                    friendList = (ArrayList<String>) ois.readObject();
+                Object ob = ois.readObject();
+                if (ob instanceof ArrayList)
+                    friendList = (ArrayList<String>) ob;
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
