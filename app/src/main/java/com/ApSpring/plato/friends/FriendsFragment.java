@@ -113,20 +113,23 @@ public class FriendsFragment extends Fragment {
     private void loadFriends() {
 
           MainPage.netThread.sendMessage("friendList");
-        String allFriend = "";
 
-        allFriend = MainPage.netThread.getServerMessage();
-        String[] strings = {};
-        if (!allFriend.isEmpty()) {
-            strings = allFriend.split("\\+");
+//        String allFriend = "";
+//
+        List <String> names = MainPage.netThread.getServerList();
+//        String[] strings = {};
+//        if (!allFriend.isEmpty()) {
+//            strings = allFriend.split("\\+");
+//        }
+//
+//        for (int i = 0; i < strings.length; i++) {
+//            if (!strings[i].equals("")) {
+//                friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+//            }
+//        }
+        for (int i = 0; i <names.size() ; i++) {
+            friendsList.add(new ExampleFriend(R.drawable.ic_profile,names.get(i)));
         }
-
-        for (int i = 0; i < strings.length; i++) {
-            if (!strings[i].equals("")) {
-                friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
-            }
-        }
-
 
     }
 
