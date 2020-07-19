@@ -20,10 +20,12 @@ import com.ApSpring.plato.profile.ProfilePage;
 import com.ApSpring.plato.settings.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainPage extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private TextView tv;
-    private Button profileBtn;
+    private CircleImageView profileBtn;
     private FrameLayout fl;
 
     public static NetworkHandlerThread netThread;
@@ -33,14 +35,14 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         tv = findViewById(R.id.textView);
-        profileBtn = findViewById(R.id.profileButton);
+        profileBtn = findViewById(R.id.profile_image_main_page);
         fl = findViewById(R.id.frameLayout);
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         tv.setText("Home");
-        Toast.makeText(this, "on crete main page", Toast.LENGTH_SHORT).show();
-           netThread = new NetworkHandlerThread();
+
+        netThread = new NetworkHandlerThread();
         netThread.start();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override

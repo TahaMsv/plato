@@ -4,33 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment"
-    android:background="@color/CGBlue">
+    android:background="@drawable/fragmentbg">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Game"
-        android:textSize="30dp"
-        android:textColor="#ffffff"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="X-O"
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/X_OButton"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        />
-    <Button
-        android:layout_width="match_parent"
+        android:layout_width="236dp"
         android:layout_height="wrap_content"
-        android:text="Hang man"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/xobg" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/HangMan_Button"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="150dp"
-        />
+        android:layout_width="233dp"
+        android:layout_height="245dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="283dp"
+        android:src="@drawable/hangmanbg" />
 
 
 </RelativeLayout>

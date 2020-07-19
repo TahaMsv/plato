@@ -11,12 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.ApSpring.plato.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GameFragment extends Fragment {
-    Button xo_button, hangman_button;
+    CircleImageView xo_button, hangman_button;
     View view;
 
     public GameFragment() {
