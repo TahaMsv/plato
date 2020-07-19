@@ -62,8 +62,6 @@ public class FriendsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
-
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -112,11 +110,12 @@ public class FriendsFragment extends Fragment {
 
     private void loadFriends() {
 
-          MainPage.netThread.sendMessage("friendList");
+        MainPage.netThread.sendMessage("friendList");
+        List<String> names = MainPage.netThread.getServerList();
 
 //        String allFriend = "";
 //
-        List <String> names = MainPage.netThread.getServerList();
+
 //        String[] strings = {};
 //        if (!allFriend.isEmpty()) {
 //            strings = allFriend.split("\\+");
@@ -127,8 +126,8 @@ public class FriendsFragment extends Fragment {
 //                friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
 //            }
 //        }
-        for (int i = 0; i <names.size() ; i++) {
-            friendsList.add(new ExampleFriend(R.drawable.ic_profile,names.get(i)));
+        for (int i = 0; i < names.size(); i++) {
+            friendsList.add(new ExampleFriend(R.drawable.ic_profile, names.get(i)));
         }
 
     }

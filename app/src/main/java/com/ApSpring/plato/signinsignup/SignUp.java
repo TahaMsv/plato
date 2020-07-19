@@ -51,7 +51,7 @@ public class SignUp extends AppCompatActivity {
                         Log.i("Server message", " OK ");
                         everyThingIsFine = true;
                         usernameIsFine=true;
-                    } else if (netThread.getServerMessage().startsWith("err")) {
+                    } else if (netThread.getServerMessage().startsWith("err:")) {
                         Log.i("Server message", " Error ");
                         inputUserName.setError("Username already taken");
                         usernameIsFine=false;

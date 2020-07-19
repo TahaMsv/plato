@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ApSpring.plato.MainActivity;
+import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.friends.ExampleFriend;
 import com.ApSpring.plato.friends.FriendsAdapter;
@@ -47,11 +48,11 @@ public class ChatFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_friends, container, false);
 
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
-        friendAdapter = new FriendsAdapter(chatList, getContext());
         recyclerView.setAdapter(friendAdapter);
-        /*netThread = new NetworkHandlerThread();
-        netThread.start();*/
+        chatList =new ArrayList<>();
+        friendAdapter = new FriendsAdapter(chatList, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -69,29 +70,22 @@ public class ChatFragment extends Fragment {
         super.onCreate(savedInstanceState);
         chatList = new ArrayList<>();
 
-        chatList.add(new ExampleFriend(R.drawable.profile1, "asdasd"));
-        chatList.add(new ExampleFriend(R.drawable.profile2, "asdfsdsdasd"));
-        chatList.add(new ExampleFriend(R.drawable.profile3, "asd"));
-        chatList.add(new ExampleFriend(R.drawable.profile4, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile5, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile6, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile7, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile8, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile9, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile10, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile1, "asdsssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile2, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile3, "asdass"));
-        chatList.add(new ExampleFriend(R.drawable.profile4, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile4, "asdssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile4, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile5, "asdasssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile6, "assssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile7, "asdassssssd"));
-        chatList.add(new ExampleFriend(R.drawable.profile8, "asdasaad"));
-        chatList.add(new ExampleFriend(R.drawable.profile9, "asdas vsdfvd"));
-        chatList.add(new ExampleFriend(R.drawable.profile1, "as"));
-        chatList.add(new ExampleFriend(R.drawable.profile2, "asasfasdasd"));
-        chatList.add(new ExampleFriend(R.drawable.profile3, "asdasd"));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadChats();
+    }
+
+    private void loadChats() {
+
+        MainPage.netThread.sendMessage("chatList");
+        List<String> chats = MainPage.netThread.getServerList();
+
+        for (int i = 0; i < chats.size(); i++) {
+            chatList.add(new ExampleFriend(R.drawable.ic_profile, chats.get(i)));
+        }
+
     }
 }
