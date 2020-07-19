@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ApSpring.plato.MainActivity;
+import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
@@ -54,23 +55,19 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_friends, container, false);
-        Toast.makeText(getActivity(), "on create view ", Toast.LENGTH_SHORT).show();
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
         friendsList = new ArrayList<ExampleFriend>();
         friendAdapter = new FriendsAdapter(friendsList, getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Toast.makeText(getActivity(), ""+MainActivity.counter, Toast.LENGTH_SHORT).show();
-        netThread = new NetworkHandlerThread();
-        if(MainActivity.counter==1) {
-            netThread.start();
-            MainActivity.counter++;
 
-        }
+
+
+
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                netThread.sendMessage("chatScreen" + friendsList.get(position).getUsername());
+                MainPage.netThread.sendMessage("chatScreen" + friendsList.get(position).getUsername());
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
 //                startActivityForResult(intent, ADD_FRIEND);
                 startActivity(intent);
@@ -106,28 +103,19 @@ public class FriendsFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(getActivity(), "on start", Toast.LENGTH_SHORT).show();
         loadFriends();
     }
 
 
-
     private void loadFriends() {
 
-       netThread.sendMessage("friendList");
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+          MainPage.netThread.sendMessage("friendList");
         String allFriend = "";
 
-        allFriend = netThread.getServerMessage();
+        allFriend = MainPage.netThread.getServerMessage();
         String[] strings = {};
         if (!allFriend.isEmpty()) {
             strings = allFriend.split("\\+");
@@ -138,7 +126,8 @@ public class FriendsFragment extends Fragment {
                 friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
             }
         }
-        friendsList.add(new ExampleFriend(R.drawable.ic_profile, "taha"));
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -147,7 +136,13 @@ public class FriendsFragment extends Fragment {
             Bundle extras = data.getExtras();
             if (extras != null) {
                 String friendsUsername = extras.getString("friendsUsername");
-                friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsername));
+                if (friendsUsername.contains("not found")) {
+                    Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
+                } else if (friendsUsername.contains("already has been add")) {
+                    Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
+                } else {
+                    friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsername));
+                }
             }
         }
 

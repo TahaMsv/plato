@@ -49,9 +49,15 @@ public class AddFriend extends AppCompatActivity {
                         setResult(RESULT_OK, intent);
                         finish();
                     } else if (serverMessage.startsWith("err")) {
-                        Toast.makeText(AddFriend.this, username + " not found", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("friendsUsername", "not found");
+                        setResult(RESULT_OK, intent);
+                        finish();
                     } else if (serverMessage.equals("this friend already exists")) {
-                        Toast.makeText(AddFriend.this, username + " has already been added", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("friendsUsername", username+" already has been add");
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
                 }
             }

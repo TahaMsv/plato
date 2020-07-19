@@ -14,7 +14,6 @@ import com.ApSpring.plato.signinsignup.SignUp;
 public class MainActivity extends AppCompatActivity {
     Button signUpButton;
     Button signInButton;
-    public static int counter=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

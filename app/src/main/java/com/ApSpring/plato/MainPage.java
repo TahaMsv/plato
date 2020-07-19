@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ public class MainPage extends AppCompatActivity {
     private Button profileBtn;
     private FrameLayout fl;
 
+    public static NetworkHandlerThread netThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,9 @@ public class MainPage extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
         tv.setText("Home");
-
+        Toast.makeText(this, "on crete main page", Toast.LENGTH_SHORT).show();
+           netThread = new NetworkHandlerThread();
+        netThread.start();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

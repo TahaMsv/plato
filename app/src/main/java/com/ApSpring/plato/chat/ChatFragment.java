@@ -49,8 +49,8 @@ public class ChatFragment extends Fragment {
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
         friendAdapter = new FriendsAdapter(chatList, getContext());
         recyclerView.setAdapter(friendAdapter);
-        netThread = new NetworkHandlerThread();
-        netThread.start();
+        /*netThread = new NetworkHandlerThread();
+        netThread.start();*/
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
@@ -62,19 +62,13 @@ public class ChatFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        netThread.sendMessage("chatFragment");
 
-        Toast.makeText(getContext(), "chat on start", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         chatList = new ArrayList<>();
-        Toast.makeText(getActivity(), "" + MainActivity.counter, Toast.LENGTH_SHORT).show();
+
         chatList.add(new ExampleFriend(R.drawable.profile1, "asdasd"));
         chatList.add(new ExampleFriend(R.drawable.profile2, "asdfsdsdasd"));
         chatList.add(new ExampleFriend(R.drawable.profile3, "asd"));
