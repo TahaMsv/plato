@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
@@ -51,7 +52,8 @@ public class ChatScreenActivity extends AppCompatActivity {
 
                 Chat chat = new Chat(message, "you", "me");
 
-                netThread.sendMessage("chatSenderMessage+" + friendUsername + "+" + message);
+                netThread.sendMessage("chatSenderMessage+" + MainActivity.username + "+"
+                        + friendUsername + "+" + message);
 
                 mChat.add(chat);
                 messageAdapter.notifyDataSetChanged();
@@ -68,7 +70,7 @@ public class ChatScreenActivity extends AppCompatActivity {
     }
 
     private void readMessage(String friendUsername) throws InterruptedException {
-        String s = "loadMessages" + friendUsername;
+        String s = "loadMessages+" + friendUsername + "+" + MainActivity.username;
         Thread.sleep(500);
         netThread.sendMessage(s);
         Thread.sleep(500);
@@ -76,14 +78,14 @@ public class ChatScreenActivity extends AppCompatActivity {
 //        }
         String messages = netThread.getServerMessage();
         String[] messageSplit = {};
-        if ( !messages.equals(" ")) {
+        if (!messages.equals(" ")) {
             messageSplit = messages.split("\\+");
         }
-        for (int i = 0; i < messageSplit.length; i++) {
+        for (int i = 1; i < messageSplit.length; i++) {
             String currentMessage = messageSplit[i];
             if (!currentMessage.isEmpty()) {
                 String[] data = currentMessage.split(","); // data[0]=sender  ,  data[1]=receiver  , data[2]=message
-                if (data[0].equals(friendUsername)) {
+                if (data[1].equals(friendUsername)) {
                     Chat chat = new Chat(data[2], "me", "you");
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
