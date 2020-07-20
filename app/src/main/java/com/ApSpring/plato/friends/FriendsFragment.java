@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
@@ -100,14 +101,14 @@ public class FriendsFragment extends Fragment {
 
     private void loadFriends() {
 
-        MainPage.netThread.sendMessage("friendList");
+        MainPage.netThread.sendMessage("friendList" + MainActivity.username);
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        String allFriend = "";
+        String allFriend;
         while (MainPage.netThread.getServerMessage().equals("")) {
 
         }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
@@ -64,6 +65,7 @@ public class SignIn extends AppCompatActivity {
                     String serverMessage = netThread.getServerMessage();
                     Toast.makeText(SignIn.this, serverMessage, Toast.LENGTH_SHORT).show();
                     if (serverMessage.startsWith("ok")) {
+                        MainActivity.username = username;
                         Intent intent = new Intent(SignIn.this, MainPage.class);
                         startActivity(intent);
                     }else if (serverMessage.equals("wrongPassword")){

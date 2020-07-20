@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
@@ -50,11 +50,11 @@ public class SignUp extends AppCompatActivity {
                     if (netThread.getServerMessage().startsWith("correctUsername")) {
                         Log.i("Server message", " OK ");
                         everyThingIsFine = true;
-                        usernameIsFine=true;
+                        usernameIsFine = true;
                     } else if (netThread.getServerMessage().startsWith("err:")) {
                         Log.i("Server message", " Error ");
                         inputUserName.setError("Username already taken");
-                        usernameIsFine=false;
+                        usernameIsFine = false;
                     }
                 }
 
@@ -81,7 +81,7 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-inputUserName.addTextChangedListener(signUpTextWatcher);
+        inputUserName.addTextChangedListener(signUpTextWatcher);
         inputPassWord.addTextChangedListener(signUpTextWatcher);
         inputPassWordRepeat.addTextChangedListener(signUpTextWatcher);
 
@@ -91,15 +91,15 @@ inputUserName.addTextChangedListener(signUpTextWatcher);
                 String username = inputUserName.getText().toString().trim();
                 String password = inputPassWord.getText().toString().trim();
                 String passwordRepeat = inputPassWordRepeat.getText().toString().trim();
-                if(!username.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty()){
-                    if(password.equals(passwordRepeat)){
+                if (!username.isEmpty() && !password.isEmpty() && !passwordRepeat.isEmpty()) {
+                    if (password.equals(passwordRepeat)) {
 
-                          netThread.sendMessage("SignUpButton");
-                          Intent intent = new Intent(SignUp.this, MainPage.class);
-                          startActivity(intent);
+                        netThread.sendMessage("SignUpButton");
+                        MainActivity.username = username;
+                        Intent intent = new Intent(SignUp.this, MainPage.class);
+                        startActivity(intent);
 
-                    }
-                    else {
+                    } else {
                         inputPassWordRepeat.setError("Not equal to the password");
                     }
                 }
@@ -127,14 +127,14 @@ inputUserName.addTextChangedListener(signUpTextWatcher);
                 inputPassWordRepeat.setError("Not equal to the password");
             } else {
                 correctPassWordRepeat = true;
-                }
-                if (!username.isEmpty() && !password.isEmpty() && !passWordRepeat.isEmpty() && correctPassWordRepeat && usernameIsFine) {
-                    signUpButton.setEnabled(true);
-                    signUpButton.setBackgroundColor(0xFF00FF00);
-                } else {
-                    signUpButton.setEnabled(false);
-                    signUpButton.setBackgroundColor(0xFFF07167);
-                }
+            }
+            if (!username.isEmpty() && !password.isEmpty() && !passWordRepeat.isEmpty() && correctPassWordRepeat && usernameIsFine) {
+                signUpButton.setEnabled(true);
+                signUpButton.setBackgroundColor(0xFF00FF00);
+            } else {
+                signUpButton.setEnabled(false);
+                signUpButton.setBackgroundColor(0xFFF07167);
+            }
 
             if (password.isEmpty()) {
                 inputPassWord.setError("Enter your password");
