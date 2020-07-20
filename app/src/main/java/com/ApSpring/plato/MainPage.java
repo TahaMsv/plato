@@ -15,10 +15,14 @@ import androidx.fragment.app.Fragment;
 
 import com.ApSpring.plato.Games.GameFragment;
 import com.ApSpring.plato.chat.ChatFragment;
+import com.ApSpring.plato.friends.ExampleFriend;
 import com.ApSpring.plato.friends.FriendsFragment;
 import com.ApSpring.plato.profile.ProfilePage;
 import com.ApSpring.plato.settings.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,6 +30,8 @@ public class MainPage extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private TextView tv;
     private CircleImageView profileBtn;
+    public static List<ExampleFriend> friendsList;
+
     private FrameLayout fl;
 
     public static NetworkHandlerThread netThread;
@@ -44,6 +50,7 @@ public class MainPage extends AppCompatActivity {
 
         netThread = new NetworkHandlerThread();
         netThread.start();
+        friendsList = new ArrayList<>();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +58,12 @@ public class MainPage extends AppCompatActivity {
                 startActivity(moveToProfilePageIntent);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        netThread.start();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new

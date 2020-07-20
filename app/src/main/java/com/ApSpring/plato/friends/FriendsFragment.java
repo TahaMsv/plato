@@ -18,9 +18,6 @@ import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static android.app.Activity.RESULT_OK;
 
 
@@ -31,7 +28,6 @@ public class FriendsFragment extends Fragment {
 
     View v;
     RecyclerView recyclerView;
-    List<ExampleFriend> friendsList;
     FriendsAdapter friendAdapter;
     FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
@@ -47,8 +43,7 @@ public class FriendsFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_friends, container, false);
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
-        friendsList = new ArrayList<ExampleFriend>();
-        friendAdapter = new FriendsAdapter(friendsList, getContext());
+        friendAdapter = new FriendsAdapter(MainPage.friendsList, getContext());
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -56,7 +51,7 @@ public class FriendsFragment extends Fragment {
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String friendsUsername = friendsList.get(position).getUsername();
+                String friendsUsername = MainPage.friendsList.get(position).getUsername();
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
                 intent.putExtra("friendUsername", friendsUsername);
                 startActivity(intent);
@@ -114,6 +109,8 @@ public class FriendsFragment extends Fragment {
         }
         allFriend = MainPage.netThread.getServerMessage();
         allFriend = allFriend.substring(1);
+
+
         String[] strings = {};
         if (!allFriend.isEmpty()) {
             strings = allFriend.split("\\+");
@@ -122,18 +119,18 @@ public class FriendsFragment extends Fragment {
         for (int i = 0; i < strings.length; i++) {
             boolean beenInListBefore = false;
             if (!strings[i].equals("")) {
-                if (friendsList.size() != 0) {
-                    for (ExampleFriend ex : friendsList) {
+                if (MainPage.friendsList.size() != 0) {
+                    for (ExampleFriend ex : MainPage.friendsList) {
                         if (ex.getUsername().equals(strings[i])) {
                             beenInListBefore = true;
                             break;
                         }
                     }
                     if (!beenInListBefore)
-                        friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                        MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
                 }
                 friendAdapter.notifyDataSetChanged();
-                friendAdapter.notifyItemChanged(friendsList.size() - 1);
+                friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
             }
         }
 
@@ -151,7 +148,8 @@ public class FriendsFragment extends Fragment {
                 } else if (friendsUsername.contains("already has been add")) {
                     Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
                 } else {
-                    friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsername));
+                    MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsername));
+                    friendAdapter.notifyDataSetChanged();
                 }
             }
         }
