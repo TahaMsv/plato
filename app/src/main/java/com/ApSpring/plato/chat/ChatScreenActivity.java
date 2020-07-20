@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
@@ -77,8 +75,8 @@ public class ChatScreenActivity extends AppCompatActivity {
         while (netThread.getServerMessage().equals("")) {
         }
         String messages = netThread.getServerMessage();
-        String[] messageSplit={};
-        if(!messages.isEmpty()) {
+        String[] messageSplit = {};
+        if (!messages.isEmpty()) {
             messageSplit = messages.split("\\+");
         }
         for (int i = 0; i < messageSplit.length; i++) {

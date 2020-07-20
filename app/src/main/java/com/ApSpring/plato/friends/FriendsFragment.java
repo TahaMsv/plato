@@ -1,31 +1,23 @@
 package com.ApSpring.plato.friends;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.MainPage;
-import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 import com.ApSpring.plato.chat.ChatScreenActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -63,10 +55,9 @@ public class FriendsFragment extends Fragment {
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String friendsUsername=friendsList.get(position).getUsername();
-//                MainPage.netThread.sendMessage("chatScreen" + friendsUsername);
+                String friendsUsername = friendsList.get(position).getUsername();
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
-                intent.putExtra("friendUsername",friendsUsername);
+                intent.putExtra("friendUsername", friendsUsername);
                 startActivity(intent);
             }
         });
@@ -110,21 +101,38 @@ public class FriendsFragment extends Fragment {
     private void loadFriends() {
 
         MainPage.netThread.sendMessage("friendList");
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         String allFriend = "";
-//        while (MainPage.netThread.getServerMessage().equals("")){
-//
-//        }
+        while (MainPage.netThread.getServerMessage().equals("")) {
+
+        }
         allFriend = MainPage.netThread.getServerMessage();
+        allFriend = allFriend.substring(1);
         String[] strings = {};
-        if(!allFriend.isEmpty()) {
+        if (!allFriend.isEmpty()) {
             strings = allFriend.split("\\+");
         }
 
         for (int i = 0; i < strings.length; i++) {
+            boolean beenInListBefore = false;
             if (!strings[i].equals("")) {
-                friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                if (friendsList.size() != 0) {
+                    for (ExampleFriend ex : friendsList) {
+                        if (ex.getUsername().equals(strings[i])) {
+                            beenInListBefore = true;
+                            break;
+                        }
+                    }
+                    if (!beenInListBefore)
+                        friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                }
                 friendAdapter.notifyDataSetChanged();
+                friendAdapter.notifyItemChanged(friendsList.size() - 1);
             }
         }
 
