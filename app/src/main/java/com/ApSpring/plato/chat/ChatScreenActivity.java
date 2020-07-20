@@ -72,11 +72,11 @@ public class ChatScreenActivity extends AppCompatActivity {
         Thread.sleep(500);
         netThread.sendMessage(s);
         Thread.sleep(500);
-        while (netThread.getServerMessage().equals("")) {
-        }
+//        while (netThread.getServerMessage().equals("")) {
+//        }
         String messages = netThread.getServerMessage();
         String[] messageSplit = {};
-        if (!messages.isEmpty()) {
+        if ( !messages.equals(" ")) {
             messageSplit = messages.split("\\+");
         }
         for (int i = 0; i < messageSplit.length; i++) {
