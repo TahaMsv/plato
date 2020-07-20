@@ -43,8 +43,6 @@ public class FriendsFragment extends Fragment {
     FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
 
-    private NetworkHandlerThread netThread;
-
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -113,21 +111,22 @@ public class FriendsFragment extends Fragment {
         MainPage.netThread.sendMessage("friendList");
 
         String allFriend = "";
-        while (MainPage.netThread.getServerMessage().equals("")){
-
-        }
+//        while (MainPage.netThread.getServerMessage().equals("")){
+//
+//        }
         allFriend = MainPage.netThread.getServerMessage();
-        allFriend = allFriend.substring(1);
         String[] strings = {};
+        if(!allFriend.isEmpty()) {
             strings = allFriend.split("\\+");
-
+        }
 
         for (int i = 0; i < strings.length; i++) {
             if (!strings[i].equals("")) {
                 friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                friendAdapter.notifyDataSetChanged();
             }
         }
-        friendAdapter.notifyDataSetChanged();
+
 
     }
 
