@@ -1,20 +1,20 @@
+
+
 package com.ApSpring.plato;
 
-import android.util.Log;
+        import android.util.Log;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.net.Socket;
-import java.util.ArrayList;
+        import java.io.DataInputStream;
+        import java.io.DataOutputStream;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.io.ObjectInputStream;
+        import java.net.Socket;
+        import java.util.ArrayList;
 
 public class NetworkHandlerThread extends Thread {
     private DataOutputStream dos;
     private DataInputStream dis;
-    private InputStream is;
-    private ObjectInputStream ois;
     Socket socket;
     private String serverMessage = "";
     private ArrayList<String> friendList = new ArrayList<>();
@@ -27,16 +27,12 @@ public class NetworkHandlerThread extends Thread {
         try {
             socket = new Socket("192.168.1.4", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
             dis = new DataInputStream(socket.getInputStream());
             sendMode = true;
             while (true) {
                 serverMessage = dis.readUTF();
-                Object ob = ois.readObject();
-                if (ob instanceof ArrayList)
-                    friendList = (ArrayList<String>) ob;
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -98,7 +94,6 @@ public class NetworkHandlerThread extends Thread {
             dis.close();
 
             dos.close();
-            ois.close();
             socket.close();
         }catch (IOException e) {
             e.printStackTrace();
@@ -106,5 +101,4 @@ public class NetworkHandlerThread extends Thread {
     }
 
 }
-
 

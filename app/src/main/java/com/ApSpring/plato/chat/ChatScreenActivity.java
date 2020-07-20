@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
@@ -30,10 +31,10 @@ public class ChatScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
 
+
         final String friendUsername = getIntent().getStringExtra("friendUsername");
 
         mChat = new ArrayList<>();
-        netThread = new NetworkHandlerThread();
         sendButton = findViewById(R.id.sendButton);
         inputMessage = findViewById(R.id.text_send);
         recyclerView = findViewById(R.id.chatMessages);
@@ -41,12 +42,14 @@ public class ChatScreenActivity extends AppCompatActivity {
         messageAdapter = new MessageAdapter(mChat, this);
         recyclerView.setAdapter(messageAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        netThread = new NetworkHandlerThread();
+        netThread.start();
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = inputMessage.getText().toString().trim();
                 inputMessage.setText("");
+
 
                 Chat chat = new Chat(message, "you", "me");
 
@@ -58,16 +61,26 @@ public class ChatScreenActivity extends AppCompatActivity {
             }
         });
 
-      //  readMessage(friendUsername);
+        try {
+            readMessage(friendUsername);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private void readMessage(String friendUsername) {
+    private void readMessage(String friendUsername) throws InterruptedException {
+        String s = "loadMessages" + friendUsername;
+        Thread.sleep(500);
+        netThread.sendMessage(s);
+        Thread.sleep(500);
         while (netThread.getServerMessage().equals("")) {
         }
         String messages = netThread.getServerMessage();
-        String[] messageSplit = messages.split("\\+");
-
+        String[] messageSplit={};
+        if(!messages.isEmpty()) {
+            messageSplit = messages.split("\\+");
+        }
         for (int i = 0; i < messageSplit.length; i++) {
             String currentMessage = messageSplit[i];
             if (!currentMessage.isEmpty()) {
