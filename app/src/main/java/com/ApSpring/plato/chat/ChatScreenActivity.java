@@ -29,6 +29,9 @@ public class ChatScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
+
+        final String friendUsername = getIntent().getStringExtra("friendUsername");
+
         mChat = new ArrayList<>();
         netThread = new NetworkHandlerThread();
         sendButton = findViewById(R.id.sendButton);
@@ -47,7 +50,7 @@ public class ChatScreenActivity extends AppCompatActivity {
 
                 Chat chat = new Chat(message, "you", "me");
 
-                netThread.sendMessage("chatSenderMessage+" + message);
+                netThread.sendMessage("chatSenderMessage+" + friendUsername + "+" + message);
 
                 mChat.add(chat);
                 messageAdapter.notifyDataSetChanged();
@@ -55,25 +58,33 @@ public class ChatScreenActivity extends AppCompatActivity {
             }
         });
 
-        readMessage();
+      //  readMessage(friendUsername);
 
     }
 
-    private void readMessage() {
-        while (netThread.getServerMessage().equals("")){
-
+    private void readMessage(String friendUsername) {
+        while (netThread.getServerMessage().equals("")) {
         }
-        String[] messageSplit;
-        String otherPersonMessage = netThread.getServerMessage();
-        if (otherPersonMessage.startsWith("chatReceiveMessage")){
-            while (!otherPersonMessage.equals("chatReceiveMessage+chatFinish")){
-                messageSplit = otherPersonMessage.split("\\+");
-                Chat chat = new Chat(messageSplit[1], "me", "you");
-                otherPersonMessage = netThread.getServerMessage();
-                mChat.add(chat);
-                messageAdapter.notifyDataSetChanged();
-                messageAdapter.notifyItemChanged(mChat.size() - 1);
+        String messages = netThread.getServerMessage();
+        String[] messageSplit = messages.split("\\+");
+
+        for (int i = 0; i < messageSplit.length; i++) {
+            String currentMessage = messageSplit[i];
+            if (!currentMessage.isEmpty()) {
+                String[] data = currentMessage.split(","); // data[0]=sender  ,  data[1]=receiver  , data[2]=message
+                if (data[0].equals(friendUsername)) {
+                    Chat chat = new Chat(data[2], "me", "you");
+                    mChat.add(chat);
+                    messageAdapter.notifyDataSetChanged();
+                    messageAdapter.notifyItemChanged(mChat.size() - 1);
+                } else {
+                    Chat chat = new Chat(data[2], "you", "me");
+                    mChat.add(chat);
+                    messageAdapter.notifyDataSetChanged();
+                    messageAdapter.notifyItemChanged(mChat.size() - 1);
+                }
             }
         }
     }
+
 }

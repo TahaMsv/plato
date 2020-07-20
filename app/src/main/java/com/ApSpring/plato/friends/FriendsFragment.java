@@ -63,9 +63,10 @@ public class FriendsFragment extends Fragment {
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                MainPage.netThread.sendMessage("chatScreen" + friendsList.get(position).getUsername());
+                String friendsUsername=friendsList.get(position).getUsername();
+//                MainPage.netThread.sendMessage("chatScreen" + friendsUsername);
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
-//                startActivityForResult(intent, ADD_FRIEND);
+                intent.putExtra("friendUsername",friendsUsername);
                 startActivity(intent);
             }
         });
