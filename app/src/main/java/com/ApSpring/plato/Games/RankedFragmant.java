@@ -55,7 +55,7 @@ public class RankedFragmant extends Fragment {
     }
 
     private void readMessageFromServerToStartGame(){
-        while (GameFragment.netThread.getServerMessage().equals(""));
+//        while (GameFragment.netThread.getServerMessage().equals(""));
 
         String serverMessage = MainPage.netThread.getServerMessage();
         if (serverMessage.equals("startXO")){
