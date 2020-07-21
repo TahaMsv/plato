@@ -49,6 +49,7 @@ public class MainPage extends AppCompatActivity {
         tv.setText("Home");
 
         netThread = new NetworkHandlerThread();
+        netThread.start();
         friendsList = new ArrayList<>();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        netThread.start();
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new

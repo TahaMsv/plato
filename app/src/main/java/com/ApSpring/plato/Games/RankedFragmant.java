@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.ApSpring.plato.MainActivity;
+import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.R;
 
 /**
@@ -15,7 +19,8 @@ import com.ApSpring.plato.R;
  * create an instance of this fragment.
  */
 public class RankedFragmant extends Fragment {
-
+    private Button startNewXORankMode;
+    private Button startNewHangmanRankMode;
 
     public RankedFragmant() {
         // Required empty public constructor
@@ -30,7 +35,34 @@ public class RankedFragmant extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ranked_fragmant, container, false);
+        View view = inflater.inflate(R.layout.fragment_ranked_fragmant, container, false);
+        startNewXORankMode = view.findViewById(R.id.rank_start_X_O);
+        startNewHangmanRankMode = view.findViewById(R.id.rank_start_hangman);
+        startNewXORankMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameFragment.netThread.sendMessage("gameXORank" + MainActivity.username);
+            }
+        });
+        startNewHangmanRankMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameFragment.netThread.sendMessage("gameHangmanRank" + MainActivity.username);
+            }
+        });
+        readMessageFromServerToStartGame();
+        return view;
+    }
+
+    void readMessageFromServerToStartGame(){
+        while (GameFragment.netThread.getServerMessage().equals(""));
+
+        String serverMessage = GameFragment.netThread.getServerMessage();
+        if (serverMessage.equals("startXO")){
+            Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
+        }
+        else if (serverMessage.equals("startHangman")){
+
+        }
     }
 }

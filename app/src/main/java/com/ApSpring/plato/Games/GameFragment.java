@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class GameFragment extends Fragment {
     CircleImageView xo_button, hangman_button;
     View view;
+    public static NetworkHandlerThread netThread;
 
     public GameFragment() {
         // Required empty public constructor
@@ -39,6 +41,8 @@ public class GameFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        netThread = new NetworkHandlerThread();
+        netThread.start();
     }
 
     @Override
