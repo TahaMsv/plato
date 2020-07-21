@@ -49,7 +49,6 @@ public class MainPage extends AppCompatActivity {
         tv.setText("Home");
 
         netThread = new NetworkHandlerThread();
-        netThread.start();
         friendsList = new ArrayList<>();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override

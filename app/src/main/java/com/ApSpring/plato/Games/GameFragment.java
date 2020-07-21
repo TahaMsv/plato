@@ -5,11 +5,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ApSpring.plato.R;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,28 +35,79 @@ public class GameFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_game, container, false);
-        xo_button = view.findViewById(R.id.X_OButton);
-        xo_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TicTocToe.class);
-                startActivity(intent);
-            }
-        });
-        hangman_button = view.findViewById(R.id.HangMan_Button);
 
-        hangman_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Hangman.class);
-                startActivity(intent);
-            }
-        });
+        ViewPager viewPager = view.findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        TabLayout tabs = view.findViewById(R.id.result_tabs);
+        tabs.setupWithViewPager(viewPager);
+
+//        xo_button = view.findViewById(R.id.X_OButton);
+//        xo_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), TicTocToe.class);
+//                startActivity(intent);
+//            }
+//        });
+//        hangman_button = view.findViewById(R.id.HangMan_Button);
+//
+//        hangman_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), Hangman.class);
+//                startActivity(intent);
+//            }
+//        });
         return view;
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+        Adapter adapter = new Adapter(getChildFragmentManager());
+        adapter.addFragment(new CasualGame(), "Casual");
+        adapter.addFragment(new RankedFragmant(), "Ranked");
+        adapter.addFragment(new LeaderBoardFragment(), "Leader Board");
+        viewPager.setAdapter(adapter);
+    }
+
+    static class Adapter extends FragmentPagerAdapter{
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public Adapter(@NonNull FragmentManager fm) {
+            super(fm);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title){
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }
