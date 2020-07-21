@@ -21,11 +21,13 @@ public class NetworkHandlerThread extends Thread {
     private static boolean sendMode;
     private static int counter = 0;
 
+    public NetworkHandlerThread() {}
+
     @Override
     public void run() {
         super.run();
         try {
-            socket = new Socket("192.168.1.34", 3000);
+            socket = new Socket("192.168.1.4", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             sendMode = true;

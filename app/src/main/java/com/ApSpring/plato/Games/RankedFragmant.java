@@ -41,13 +41,13 @@ public class RankedFragmant extends Fragment {
         startNewXORankMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainPage.netThread.sendMessage("gameXORank" + MainActivity.username);
+                GameFragment.netThread.sendMessage("gameXORank" + MainActivity.username);
             }
         });
         startNewHangmanRankMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainPage.netThread.sendMessage("gameHangmanRank" + MainActivity.username);
+                GameFragment.netThread.sendMessage("gameHangmanRank" + MainActivity.username);
             }
         });
         readMessageFromServerToStartGame();
@@ -55,13 +55,18 @@ public class RankedFragmant extends Fragment {
     }
 
     private void readMessageFromServerToStartGame(){
-//        while (GameFragment.netThread.getServerMessage().equals(""));
 
-        String serverMessage = MainPage.netThread.getServerMessage();
-        if (serverMessage.equals("startXO")){
+
+        String serverMessage = GameFragment.netThread.getServerMessage();
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (serverMessage.startsWith("startXO")){
             Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
         }
-        else if (serverMessage.equals("startHangman")){
+        else if (serverMessage.startsWith("startHangman")){
 
         }
     }
