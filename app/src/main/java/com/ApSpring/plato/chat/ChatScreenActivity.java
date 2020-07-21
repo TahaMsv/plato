@@ -86,12 +86,12 @@ public class ChatScreenActivity extends AppCompatActivity {
             if (!currentMessage.isEmpty()) {
                 String[] data = currentMessage.split(","); // data[0]=sender  ,  data[1]=receiver  , data[2]=message
                 if (data[1].equals(friendUsername)) {
-                    Chat chat = new Chat(data[2], "me", "you");
+                    Chat chat = new Chat(data[2], "you", "me");
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
                     messageAdapter.notifyItemChanged(mChat.size() - 1);
                 } else {
-                    Chat chat = new Chat(data[2], "you", "me");
+                    Chat chat = new Chat(data[2], "me", "you");
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
                     messageAdapter.notifyItemChanged(mChat.size() - 1);
