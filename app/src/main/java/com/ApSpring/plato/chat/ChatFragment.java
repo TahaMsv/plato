@@ -31,9 +31,9 @@ public class ChatFragment extends Fragment {
 
 
     View v;
-    RecyclerView recyclerView;
-    List<ExampleFriend> chatList;
-    FriendsAdapter friendAdapter;
+    private RecyclerView recyclerView;
+    private List<ExampleFriend> chatList;
+    private FriendsAdapter friendAdapter;
     private NetworkHandlerThread netThread;
 
     public ChatFragment() {
@@ -81,6 +81,7 @@ public class ChatFragment extends Fragment {
     private void loadChats() {
 
         MainPage.netThread.sendMessage("chatList");
+//        MainPage.netThread.start();
         List<String> chats = MainPage.netThread.getServerList();
 
         for (int i = 0; i < chats.size(); i++) {

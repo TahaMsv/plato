@@ -26,10 +26,10 @@ import static android.app.Activity.RESULT_OK;
  */
 public class FriendsFragment extends Fragment {
 
-    View v;
-    RecyclerView recyclerView;
-    FriendsAdapter friendAdapter;
-    FloatingActionButton fab;
+    private View v;
+    private RecyclerView recyclerView;
+    private FriendsAdapter friendAdapter;
+    private FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
 
 
@@ -104,10 +104,18 @@ public class FriendsFragment extends Fragment {
         }
 
         String allFriend;
-        while (MainPage.netThread.getServerMessage().equals("")) {
+//        while (MainPage.netThread.getServerMessage().equals("")) {
+//
+//        }
+//        MainPage.netThread.start();
+        allFriend = MainPage.netThread.getSMessage();
 
-        }
-        allFriend = MainPage.netThread.getServerMessage();
+//        try {
+//            Thread.sleep(200);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         allFriend = allFriend.substring(1);
 
 

@@ -2,15 +2,13 @@
 
 package com.ApSpring.plato;
 
-        import android.util.Log;
+import android.util.Log;
 
-        import java.io.DataInputStream;
-        import java.io.DataOutputStream;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.ObjectInputStream;
-        import java.net.Socket;
-        import java.util.ArrayList;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.ArrayList;
 
 public class NetworkHandlerThread extends Thread {
     private DataOutputStream dos;
@@ -29,13 +27,33 @@ public class NetworkHandlerThread extends Thread {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             sendMode = true;
-            while (true) {
-                serverMessage = dis.readUTF();
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    public String getSMessage(){
+        Thread receiverMessage = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    dis = new DataInputStream(socket.getInputStream());
+                    serverMessage = dis.readUTF();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        receiverMessage.start();
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverMessage;
+    }
+
 
     public String getServerMessage() {
 
@@ -48,29 +66,12 @@ public class NetworkHandlerThread extends Thread {
         }
     }
 
+
+
     public ArrayList<String> getServerList() {
         return friendList;
     }
 
-    public void sendModeMessage(String mode) {
-        final String finalMessage = mode;
-        if (sendMode) {
-            Thread senderThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        dos.writeUTF(finalMessage);
-                        sendMode = false;
-                        counter++;
-                        Log.i("mode : ", "" + counter);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            senderThread.start();
-        }
-    }
 
     public void sendMessage(String message) {
         final String finalMessage = message;
@@ -79,6 +80,7 @@ public class NetworkHandlerThread extends Thread {
             @Override
             public void run() {
                 try {
+                    dos = new DataOutputStream(socket.getOutputStream());
                     dos.writeUTF(finalMessage);
                     dos.flush();
                 } catch (IOException e) {
@@ -88,16 +90,6 @@ public class NetworkHandlerThread extends Thread {
         });
         senderThread.start();
 
-    }
-    public void finish(){
-        try {
-            dis.close();
-
-            dos.close();
-            socket.close();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

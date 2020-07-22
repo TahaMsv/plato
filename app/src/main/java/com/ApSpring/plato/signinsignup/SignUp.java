@@ -32,6 +32,7 @@ public class SignUp extends AppCompatActivity {
 
         netThread = new NetworkHandlerThread();
         netThread.start();
+//        netThread.start();
 
 
         inputUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -45,13 +46,14 @@ public class SignUp extends AppCompatActivity {
                     } else {
                         netThread.sendMessage("signUPUsername:" + username);
                     }
-                    while (netThread.getServerMessage().equals("")) {
-                    }
-                    if (netThread.getServerMessage().startsWith("correctUsername")) {
+                    String result = netThread.getSMessage();
+//                    while (netThread.getServerMessage().equals("")) {
+//                    }
+                    if (result.startsWith("correctUsername")) {
                         Log.i("Server message", " OK ");
                         everyThingIsFine = true;
                         usernameIsFine = true;
-                    } else if (netThread.getServerMessage().startsWith("err:")) {
+                    } else if (result.startsWith("err:")) {
                         Log.i("Server message", " Error ");
                         inputUserName.setError("Username already taken");
                         usernameIsFine = false;

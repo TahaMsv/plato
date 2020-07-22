@@ -40,9 +40,10 @@ public class AddFriend extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    while (netThread.getServerMessage().equals("")) {
-                    }
-                    String serverMessage = netThread.getServerMessage();
+//                    while (netThread.getServerMessage().equals("")) {
+//                    }
+
+                    String serverMessage = netThread.getSMessage();
                     if (serverMessage.startsWith("ok")) {
                         Intent intent = new Intent();
                         intent.putExtra("friendsUsername", username);

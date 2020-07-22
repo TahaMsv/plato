@@ -60,9 +60,9 @@ public class SignIn extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    while (netThread.getServerMessage().equals("")) {
-                    }
-                    String serverMessage = netThread.getServerMessage();
+//                    while (netThread.getServerMessage().equals("")) {
+//                    }
+                    String serverMessage = netThread.getSMessage();
                     Toast.makeText(SignIn.this, serverMessage, Toast.LENGTH_SHORT).show();
                     if (serverMessage.startsWith("ok")) {
                         MainActivity.username = username;
