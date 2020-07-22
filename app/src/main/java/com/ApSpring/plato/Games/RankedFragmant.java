@@ -20,7 +20,7 @@ import com.ApSpring.plato.R;
  * create an instance of this fragment.
  */
 public class RankedFragmant extends Fragment {
-
+    public static int userTurn;
     public RankedFragmant() {
         // Required empty public constructor
     }
@@ -49,21 +49,42 @@ public class RankedFragmant extends Fragment {
                 GameFragment.netThread.sendMessage("gameHangmanRank" + MainActivity.username);
             }
         });
+
+        Thread listenToServer  = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                while (true){
+                    readMessageFromServerToStartGame();
+                }
+            }
+        };
+        listenToServer.start();
         readMessageFromServerToStartGame();
         return view;
     }
 
     private void readMessageFromServerToStartGame() {
         String serverMessage = GameFragment.netThread.getSMessage();
-//        if (serverMessage.equals("startXO")) {
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+        if (serverMessage.startsWith("startXO")) {
+            userTurn = Integer.parseInt(serverMessage.substring(7));
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getActivity(), TicTocToe.class);
-//            startActivity(intent);
-//        }
+            Intent intent = new Intent(getActivity(), TicTocToe.class);
+            startActivity(intent);
+        } else if(serverMessage.startsWith("startHangmanchooser")) {
+            Toast.makeText(getActivity(), "choose word", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ChooseWord.class);
+            startActivity(intent);
+        } else if (serverMessage.startsWith("startHangmanplayer")) {
+            Toast.makeText(getActivity(), "start game", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), Hangman.class);
+            startActivity(intent);
+        }
     }
+
 }

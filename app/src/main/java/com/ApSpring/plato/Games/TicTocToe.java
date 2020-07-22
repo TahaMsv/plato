@@ -2,7 +2,9 @@ package com.ApSpring.plato.Games;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,47 +14,67 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
 import java.util.Arrays;
 
 public class TicTocToe extends AppCompatActivity {
+    public static NetworkHandlerThread netThread;
+//    public ListenForOtherUser listenForOtherUser;
     public static final int YELLOW_CODE = 0;
     public static final int RED_CODE = 1;
     public static final int NOT_PLAYED = 2;
     public static final int NO_WINNER = -1;
-    int[] status = {NOT_PLAYED, NOT_PLAYED, NOT_PLAYED,
+    public static int[] status = {NOT_PLAYED, NOT_PLAYED, NOT_PLAYED,
             NOT_PLAYED, NOT_PLAYED, NOT_PLAYED,
             NOT_PLAYED, NOT_PLAYED, NOT_PLAYED
     };
-    int activePlayer = RED_CODE;
-    int winner = -1;
+    public static int activePlayer = RED_CODE;
+    public  static int winner = -1;
+    RelativeLayout playGroundLayout;
     RelativeLayout messageLayout;
-    int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}
+    public static int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}
             , {0, 4, 8}, {2, 4, 6}};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.playground);
+
         messageLayout = findViewById(R.id.messageLayout);
+        playGroundLayout = findViewById(R.id.play_ground);
+        netThread = new NetworkHandlerThread();
+        netThread.start();
+//        listenForOtherUser = new ListenForOtherUser(playGroundLayout);
+//        listenForOtherUser.start();
+
+
+
+
     }
 
     public void dropIn(View view) {
         ImageView imageView = (ImageView) view;
         int tag = Integer.parseInt((String) view.getTag());
-        if (winner != NO_WINNER || status[tag] == NOT_PLAYED) {
-            if (activePlayer == YELLOW_CODE) {
-                imageView.setImageResource(R.drawable.yellow);
-                status[tag] = activePlayer;
-                activePlayer = RED_CODE;
-            } else {
-                imageView.setImageResource(R.drawable.red);
-                status[tag] = activePlayer;
-                activePlayer = YELLOW_CODE;
-            }
+        if (RankedFragmant.userTurn == activePlayer) {
+            if (winner != NO_WINNER || status[tag] == NOT_PLAYED) {
+                if (activePlayer == YELLOW_CODE) {
+                    imageView.setImageResource(R.drawable.yellow);
+                    status[tag] = activePlayer;
+                    netThread.sendMessage("xoRankPlaying+" + RankedFragmant.userTurn + "+" + tag);
+                    activePlayer = RED_CODE;
+                } else {
+                    imageView.setImageResource(R.drawable.red);
+                    status[tag] = activePlayer;
+                    netThread.sendMessage("xoRankPlaying+" + RankedFragmant.userTurn + "+" + tag);
+                    activePlayer = YELLOW_CODE;
+                }
 
-            imageView.setAlpha(0f);
-            imageView.animate().alpha(1f).setDuration(700);
+                imageView.setAlpha(0f);
+                imageView.animate().alpha(1f).setDuration(700);
+            }
+        } else {
+            Toast.makeText(this, "not your turn!", Toast.LENGTH_SHORT).show();
         }
         //
         winnerMSG();
@@ -124,4 +146,32 @@ public class TicTocToe extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+
 }
+
+//class ListenForOtherUser extends Thread{
+//    private RelativeLayout playGround;
+//    ListenForOtherUser(RelativeLayout playGround){
+//        this.playGround = playGround;
+//    }
+//    @Override
+//    public void run() {
+//        super.run();
+//        while (true){
+//
+//            if (TicTocToe.winner != TicTocToe.NO_WINNER || TicTocToe.status[tag] == TicTocToe.NOT_PLAYED){
+//                String serverMsg = TicTocToe.netThread.getSMessage();
+//                while (serverMsg.equals("")){
+//                    serverMsg = TicTocToe.netThread.getSMessage();
+//                }
+//                String[] xoCommands = serverMsg.split("\\+"); ///0: xoCommand 1:other player turn 2: other player move
+//                int otherTurn = Integer.parseInt(xoCommands[1]);
+//                if (otherTurn == TicTocToe.RED_CODE){
+//                    imageView.setImageResource(R.drawable.yellow);
+//                    TicTocToe.status[tag] = TicTocToe.activePlayer;
+//                }
+//            }
+//        }
+//    }
+//}
