@@ -52,15 +52,15 @@ public class RankedFragmant extends Fragment {
         return view;
     }
 
-    private void readMessageFromServerToStartGame(){
-//        while (GameFragment.netThread.getServerMessage().equals(""));
-//        MainPage.netThread.start();
+    private void readMessageFromServerToStartGame() {
         String serverMessage = GameFragment.netThread.getSMessage();
-        if (serverMessage.equals("startXO")){
+        if (serverMessage.equals("startXO")) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
-        }
-        else if (serverMessage.equals("startHangman")){
-
         }
     }
 }

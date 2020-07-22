@@ -19,6 +19,8 @@ public class NetworkHandlerThread extends Thread {
     private static boolean sendMode;
     private static int counter = 0;
 
+    public NetworkHandlerThread() {}
+
     @Override
     public void run() {
         super.run();
@@ -55,16 +57,6 @@ public class NetworkHandlerThread extends Thread {
     }
 
 
-    public String getServerMessage() {
-
-        if (!this.serverMessage.equals("")) {
-
-            return this.serverMessage;
-        } else {
-
-            return "";
-        }
-    }
 
 
 

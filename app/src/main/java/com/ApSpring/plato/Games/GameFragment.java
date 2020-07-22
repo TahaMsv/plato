@@ -41,6 +41,7 @@ public class GameFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
         netThread = new NetworkHandlerThread();
         netThread.start();
     }
