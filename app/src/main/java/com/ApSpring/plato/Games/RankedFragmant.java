@@ -1,5 +1,6 @@
 package com.ApSpring.plato.Games;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -61,6 +62,8 @@ public class RankedFragmant extends Fragment {
                 e.printStackTrace();
             }
             Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), TicTocToe.class);
+            startActivity(intent);
         }
     }
 }
