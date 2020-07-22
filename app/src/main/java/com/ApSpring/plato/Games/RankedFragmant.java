@@ -55,15 +55,15 @@ public class RankedFragmant extends Fragment {
 
     private void readMessageFromServerToStartGame() {
         String serverMessage = GameFragment.netThread.getSMessage();
-        if (serverMessage.equals("startXO")) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//        if (serverMessage.equals("startXO")) {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), TicTocToe.class);
-            startActivity(intent);
-        }
+//            Intent intent = new Intent(getActivity(), TicTocToe.class);
+//            startActivity(intent);
+//        }
     }
 }
