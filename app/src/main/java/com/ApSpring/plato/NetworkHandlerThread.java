@@ -4,11 +4,14 @@ package com.ApSpring.plato;
 
 import android.util.Log;
 
+import com.ApSpring.plato.friends.ExampleFriend;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NetworkHandlerThread extends Thread {
     private DataOutputStream dos;
@@ -16,6 +19,7 @@ public class NetworkHandlerThread extends Thread {
     Socket socket;
     private String serverMessage = "";
     private ArrayList<String> friendList = new ArrayList<>();
+
     private static boolean sendMode;
     private static int counter = 0;
 
@@ -25,7 +29,7 @@ public class NetworkHandlerThread extends Thread {
     public void run() {
         super.run();
         try {
-            socket = new Socket("192.168.1.34", 3000);
+            socket = new Socket("192.168.1.5", 3000);
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             sendMode = true;
@@ -40,7 +44,7 @@ public class NetworkHandlerThread extends Thread {
             @Override
             public void run() {
                 try {
-                    dis = new DataInputStream(socket.getInputStream());
+//                    dis = new DataInputStream(socket.getInputStream());
                     serverMessage = dis.readUTF();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -53,6 +57,7 @@ public class NetworkHandlerThread extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println(serverMessage+" getSMessage");
         return serverMessage;
     }
 
@@ -72,12 +77,13 @@ public class NetworkHandlerThread extends Thread {
             @Override
             public void run() {
                 try {
-                    dos = new DataOutputStream(socket.getOutputStream());
+//                    dos = new DataOutputStream(socket.getOutputStream());
                     dos.writeUTF(finalMessage);
                     dos.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                System.out.println(finalMessage+" sendMessage");
             }
         });
         senderThread.start();

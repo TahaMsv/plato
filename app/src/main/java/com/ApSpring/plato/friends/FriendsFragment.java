@@ -109,7 +109,7 @@ public class FriendsFragment extends Fragment {
 //        }
 //        MainPage.netThread.start();
         allFriend = MainPage.netThread.getSMessage();
-
+        System.out.println("load friends 112");
 //        try {
 //            Thread.sleep(200);
 //        } catch (InterruptedException e) {
