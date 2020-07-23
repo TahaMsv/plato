@@ -32,9 +32,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 userInputNewPass = userInputEditTxt.getText().toString();
-                netThread.sendMessage("changePassword:+" + MainActivity.username + "+" + userInputNewPass);
-                Intent intent = new Intent(ChangePasswordActivity.this, ProfilePage.class);
-                startActivity(intent);
+                if(userInputNewPass.length()>=6) {
+                    netThread.sendMessage("changePassword:+" + MainActivity.username + "+" + userInputNewPass);
+                    Intent intent = new Intent(ChangePasswordActivity.this, ProfilePage.class);
+                    startActivity(intent);
+                }
+                else{
+                    userInputEditTxt.setError(" Must be more than 5 character");
+                }
             }
         });
     }
