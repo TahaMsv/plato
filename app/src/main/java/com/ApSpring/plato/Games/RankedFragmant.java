@@ -61,7 +61,7 @@ public class RankedFragmant extends Fragment {
             }
         };
         listenToServer.start();
-        readMessageFromServerToStartGame();
+//        readMessageFromServerToStartGame();
         return view;
     }
 
