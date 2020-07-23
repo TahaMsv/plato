@@ -69,7 +69,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        loadChats();
+       // loadChats();
     }
 
     private void loadChats() {
