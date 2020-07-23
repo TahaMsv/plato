@@ -28,7 +28,6 @@ public class SignUp extends AppCompatActivity {
     EditText inputUserName, inputPassWord, inputPassWordRepeat;
     Button signUpButton;
     private NetworkHandlerThread netThread;
-    boolean everyThingIsFine = false;
     boolean usernameIsFine = true;
     CircleImageView profileImage;
     FloatingActionButton chooseFromGallery;
@@ -44,7 +43,7 @@ public class SignUp extends AppCompatActivity {
 
         netThread = new NetworkHandlerThread();
         netThread.start();
-//        netThread.start();
+
 
 
         inputUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -53,23 +52,7 @@ public class SignUp extends AppCompatActivity {
 
                 if (!hasFocus) {
                     String username = inputUserName.getText().toString().trim();
-                    if (username.isEmpty()) {
-                        inputUserName.setError("Enter your username");
-                    } else {
-                        netThread.sendMessage("signUPUsername:" + username);
-                    }
-                    String result = netThread.getSMessage();
-//                    while (netThread.getServerMessage().equals("")) {
-//                    }
-                    if (result.startsWith("correctUsername")) {
-                        Log.i("Server message", " OK ");
-                        everyThingIsFine = true;
-                        usernameIsFine = true;
-                    } else if (result.startsWith("err:")) {
-                        Log.i("Server message", " Error ");
-                        inputUserName.setError("Username already taken");
-                        usernameIsFine = false;
-                    }
+
                 }
 
             }
@@ -159,6 +142,21 @@ public class SignUp extends AppCompatActivity {
             String username = inputUserName.getText().toString().trim();
             String passWordRepeat = inputPassWordRepeat.getText().toString().trim();
             String password = inputPassWord.getText().toString().trim();
+            if (username.isEmpty()) {
+                inputUserName.setError("Enter your username");
+            } else {
+                netThread.sendMessage("signUPUsername:" + username);
+            }
+            String result = netThread.getSMessage();
+
+            if (result.startsWith("correctUsername")) {
+                Log.i("Server message", " OK ");
+                usernameIsFine = true;
+            } else if (result.startsWith("err:")) {
+                Log.i("Server message", " Error ");
+                inputUserName.setError("Username already taken");
+                usernameIsFine = false;
+            }
 
             if (!passWordRepeat.isEmpty() && !password.equals(passWordRepeat)) {
                 inputPassWordRepeat.setError("Not equal to the password");
