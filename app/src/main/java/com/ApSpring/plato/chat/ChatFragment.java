@@ -98,7 +98,7 @@ public class ChatFragment extends Fragment {
         }
 
         for (int i = 0; i < strings.length; i++) {
-            if (!strings[i].equals("")) {
+            if (!strings[i].equals("") && strings[i]!=null) {
                 if (!beenInList(strings[i])) {
                     MainPage.chatList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
                     friendAdapter.notifyDataSetChanged();
