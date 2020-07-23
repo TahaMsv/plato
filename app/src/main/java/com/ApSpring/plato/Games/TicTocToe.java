@@ -2,9 +2,7 @@ package com.ApSpring.plato.Games;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,17 +54,17 @@ public class TicTocToe extends AppCompatActivity {
     public void dropIn(View view) {
         ImageView imageView = (ImageView) view;
         int tag = Integer.parseInt((String) view.getTag());
-        if (RankedFragmant.userTurn == activePlayer) {
+        if (RankedFragment.userTurn == activePlayer) {
             if (winner != NO_WINNER || status[tag] == NOT_PLAYED) {
                 if (activePlayer == YELLOW_CODE) {
                     imageView.setImageResource(R.drawable.yellow);
                     status[tag] = activePlayer;
-                    netThread.sendMessage("xoRankPlaying+" + RankedFragmant.userTurn + "+" + tag);
+                    netThread.sendMessage("xoRankPlaying+" + RankedFragment.userTurn + "+" + tag);
                     activePlayer = RED_CODE;
                 } else {
                     imageView.setImageResource(R.drawable.red);
                     status[tag] = activePlayer;
-                    netThread.sendMessage("xoRankPlaying+" + RankedFragmant.userTurn + "+" + tag);
+                    netThread.sendMessage("xoRankPlaying+" + RankedFragment.userTurn + "+" + tag);
                     activePlayer = YELLOW_CODE;
                 }
 

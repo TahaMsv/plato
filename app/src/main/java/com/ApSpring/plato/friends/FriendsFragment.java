@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.MainPage;
@@ -31,6 +32,8 @@ public class FriendsFragment extends Fragment {
     private FriendsAdapter friendAdapter;
     private FloatingActionButton fab;
     public static final int ADD_FRIEND = 1;
+    private SwipeRefreshLayout srl;
+
 
 
     public FriendsFragment() {
@@ -47,6 +50,15 @@ public class FriendsFragment extends Fragment {
         recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        srl=v.findViewById(R.id.refreshFriends);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadFriends();
+                friendAdapter.notifyDataSetChanged();
+                srl.setRefreshing(false);
+            }
+        });
 
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override

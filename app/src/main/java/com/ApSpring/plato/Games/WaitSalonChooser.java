@@ -24,7 +24,7 @@ public class WaitSalonChooser extends AppCompatActivity {
                 while (true){
                     String serverMsg = netThread.getSMessage();
                     if (serverMsg.equals("finishedPlayingHangman")){
-                        Intent intent = new Intent(WaitSalonChooser.this, RankedFragmant.class);
+                        Intent intent = new Intent(WaitSalonChooser.this, RankedFragment.class);
                         startActivity(intent);
                         break;
                     }

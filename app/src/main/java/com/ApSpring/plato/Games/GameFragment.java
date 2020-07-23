@@ -1,12 +1,9 @@
 package com.ApSpring.plato.Games;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class GameFragment extends Fragment {
     CircleImageView xo_button, hangman_button;
     View view;
-    public static NetworkHandlerThread netThread;
+//    public static NetworkHandlerThread netThread;
 
     public GameFragment() {
         // Required empty public constructor
@@ -42,8 +39,8 @@ public class GameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        netThread = new NetworkHandlerThread();
-        netThread.start();
+//        netThread = new NetworkHandlerThread();
+//        netThread.start();
     }
 
     @Override
@@ -79,7 +76,7 @@ public class GameFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager){
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new CasualGame(), "Casual");
-        adapter.addFragment(new RankedFragmant(), "Ranked");
+        adapter.addFragment(new RankedFragment(), "Ranked");
         adapter.addFragment(new LeaderBoardFragment(), "Leader Board");
         viewPager.setAdapter(adapter);
     }

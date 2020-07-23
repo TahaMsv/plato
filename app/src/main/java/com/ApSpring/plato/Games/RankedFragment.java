@@ -19,10 +19,10 @@ import com.ApSpring.plato.R;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class RankedFragmant extends Fragment {
+public class RankedFragment extends Fragment {
     public static int userTurn;
     public static int timesOfPlayingHangman = 2;
-    public RankedFragmant() {
+    public RankedFragment() {
         // Required empty public constructor
     }
 
@@ -41,32 +41,33 @@ public class RankedFragmant extends Fragment {
         startNewXORankMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameFragment.netThread.sendMessage("gameXORank" + MainActivity.username);
+                MainPage.netThread.sendMessage("gameXORank" + MainActivity.username);
+                readMessageFromServerToStartGame();
             }
         });
         startNewHangmanRankMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameFragment.netThread.sendMessage("gameHangmanRank+" + MainActivity.username + "+" + timesOfPlayingHangman);
+                MainPage.netThread.sendMessage("gameHangmanRank+" + MainActivity.username + "+" + timesOfPlayingHangman);
             }
         });
 
-        Thread listenToServer  = new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                while (true){
-                    readMessageFromServerToStartGame();
-                }
-            }
-        };
-        listenToServer.start();
-        readMessageFromServerToStartGame();
+//        Thread listenToServer  = new Thread(){
+//            @Override
+//            public void run() {
+//                super.run();
+//                while (true){
+//                    readMessageFromServerToStartGame();
+//                }
+//            }
+//        };
+//        listenToServer.start();
+
         return view;
     }
 
     private void readMessageFromServerToStartGame() {
-        String serverMessage = GameFragment.netThread.getSMessage();
+        String serverMessage = MainPage.netThread.getSMessage();
         if (serverMessage.startsWith("startXO")) {
             userTurn = Integer.parseInt(serverMessage.substring(7));
             try {

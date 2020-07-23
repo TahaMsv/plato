@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class ChatFragment extends Fragment {
     View v;
     private RecyclerView recyclerView;
     private FriendsAdapter friendAdapter;
-
+    private SwipeRefreshLayout srl;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -49,8 +50,17 @@ public class ChatFragment extends Fragment {
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
         friendAdapter = new FriendsAdapter(MainPage.chatList, getContext());
         recyclerView.setAdapter(friendAdapter);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        srl=v.findViewById(R.id.refreshChats);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadChats();
+                friendAdapter.notifyDataSetChanged();
+                srl.setRefreshing(false);
+            }
+        });
 
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
