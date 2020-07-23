@@ -34,8 +34,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 userInputNewPass = userInputEditTxt.getText().toString();
                 if(userInputNewPass.length()>=6) {
                     netThread.sendMessage("changePassword:+" + MainActivity.username + "+" + userInputNewPass);
-                    Intent intent = new Intent(ChangePasswordActivity.this, ProfilePage.class);
-                    startActivity(intent);
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
                 else{
                     userInputEditTxt.setError(" Must be more than 5 character");

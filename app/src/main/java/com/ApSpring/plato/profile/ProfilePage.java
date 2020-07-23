@@ -21,7 +21,9 @@ public class ProfilePage extends AppCompatActivity {
     CircleImageView profileImage;
     TextView username;
 
+
     public static final int CHANGE_USERNAME = 1;
+    public static final int CHANGE_PASSWORD = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilePage.this, ChangePasswordActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,CHANGE_PASSWORD);
             }
         });
 
