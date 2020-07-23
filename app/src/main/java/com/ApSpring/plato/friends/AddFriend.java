@@ -24,8 +24,7 @@ public class AddFriend extends AppCompatActivity {
         setContentView(R.layout.activity_add_friend);
         inputUsername = findViewById(R.id.addFriendInputUsername);
         addButton = findViewById(R.id.addFriendButton);
-//        netThread = new NetworkHandlerThread();
-//        netThread.start();
+
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +41,7 @@ public class AddFriend extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-//                    while (netThread.getServerMessage().equals("")) {
-//                    }
+
 
                     String serverMessage = MainPage.netThread.getSMessage();
                     if (serverMessage.startsWith("ok")) {

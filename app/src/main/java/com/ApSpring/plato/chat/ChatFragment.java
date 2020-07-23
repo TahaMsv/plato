@@ -32,7 +32,6 @@ public class ChatFragment extends Fragment {
 
     View v;
     private RecyclerView recyclerView;
-
     private FriendsAdapter friendAdapter;
 
 
@@ -48,14 +47,17 @@ public class ChatFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_chat, container, false);
 
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
-        recyclerView.setAdapter(friendAdapter);
         friendAdapter = new FriendsAdapter(MainPage.chatList, getContext());
+        recyclerView.setAdapter(friendAdapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                String friendsUsername = MainPage.friendsList.get(position).getUsername();
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
+                intent.putExtra("friendUsername", friendsUsername);
                 startActivity(intent);
             }
         });
