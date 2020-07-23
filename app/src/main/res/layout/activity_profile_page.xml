@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="#B64C8C"
+        android:background="#fff"
         android:id="@+id/profileRL1">
 
 
@@ -40,7 +40,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="64dp"
             android:ems="10"
-            android:text="Taha mousavi"
+            android:text="username"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="30dp"
@@ -52,9 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:textColor="#fff"
+            android:padding="15dp"
             android:layout_marginStart="34dp"
             android:layout_marginTop="244dp"
-            android:background="@drawable/background_left"
+            android:background="@drawable/back_ground_button_profile"
             android:text="Change username" />
 
         <Button
@@ -64,8 +66,10 @@
             android:layout_alignTop="@+id/changeUsernameBtn"
             android:layout_alignBottom="@+id/changeUsernameBtn"
             android:layout_alignParentStart="true"
-            android:background="@drawable/background_left"
+            android:textColor="#fff"
+            android:background="@drawable/back_ground_button_profile"
             android:layout_alignParentEnd="true"
+            android:padding="15dp"
             android:layout_marginStart="243dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="29dp"

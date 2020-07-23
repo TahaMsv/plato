@@ -65,10 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/result_tabs"
-                android:background="#ccc"
+                android:background="@color/lightBittersweet"
                 app:tabMinWidth="120dp"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabIndicator="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/HangManColorAccent"
+                app:tabIndicator="@color/HangManColorAccent"
                 app:tabTextColor="#5E5A5A"
                 app:tabMode="scrollable"/>
         </com.google.android.material.appbar.AppBarLayout>
