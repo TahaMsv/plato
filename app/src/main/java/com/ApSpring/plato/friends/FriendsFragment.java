@@ -98,23 +98,16 @@ public class FriendsFragment extends Fragment {
 
         MainPage.netThread.sendMessage("friendList" + MainActivity.username);
         try {
-            Thread.sleep(200);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         String allFriend;
-//        while (MainPage.netThread.getServerMessage().equals("")) {
-//
-//        }
-//        MainPage.netThread.start();
+
         allFriend = MainPage.netThread.getSMessage();
         System.out.println("load friends 112");
-//        try {
-//            Thread.sleep(200);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
         if (allFriend != null) {
             allFriend = allFriend.substring(1);
         }
@@ -124,23 +117,6 @@ public class FriendsFragment extends Fragment {
             strings = allFriend.split("\\+");
         }
 
-//        for (int i = 0; i < strings.length; i++) {
-////            boolean beenInListBefore = false;
-////            if (!strings[i].equals("")) {
-////                if (MainPage.friendsList.size() != 0) {
-////                    for (ExampleFriend ex : MainPage.friendsList) {
-////                        if (ex.getUsername().equals(strings[i])) {
-////                            beenInListBefore = true;
-////                            break;
-////                        }
-////                    }
-////                    if (!beenInListBefore)
-////                        MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
-////                }
-////                friendAdapter.notifyDataSetChanged();
-////                friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
-////            }
-////        }
         for (int i = 0; i < strings.length; i++) {
             if (!strings[i].equals("")) {
                 if (!beenInList(strings[i])) {
@@ -174,7 +150,7 @@ public class FriendsFragment extends Fragment {
                 } else if (friendsUsername.contains("already has been add")) {
                     String [] friendsUsernameParts=friendsUsername.split("\\+");
                     if(beenInList(friendsUsernameParts[1])){
-                        Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), friendsUsernameParts[0], Toast.LENGTH_SHORT).show();
                     }else {
                         MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsernameParts[1]));
                         friendAdapter.notifyDataSetChanged();

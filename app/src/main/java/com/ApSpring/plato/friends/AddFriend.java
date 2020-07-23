@@ -56,9 +56,9 @@ public class AddFriend extends AppCompatActivity {
                         intent.putExtra("friendsUsername", "not found");
                         setResult(RESULT_OK, intent);
                         finish();
-                    } else if (serverMessage.equals("this friend already exists+"+username)) {
+                    } else if (serverMessage.equals("this friend already exists")) {
                         Intent intent = new Intent();
-                        intent.putExtra("friendsUsername", username + " already has been add");
+                        intent.putExtra("friendsUsername", username + " already has been add+"+username);
                         setResult(RESULT_OK, intent);
                         finish();
                     }

@@ -69,46 +69,52 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-       // loadChats();
+        loadChats();
     }
+
 
     private void loadChats() {
 
         MainPage.netThread.sendMessage("chatList"+MainActivity.username);
         try {
-            Thread.sleep(200);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String allChats;
-        allChats = MainPage.netThread.getSMessage();
+        String allChat;
+
+        allChat = MainPage.netThread.getSMessage();
 
 
-        allChats = allChats.substring(1);
-
+        if (allChat != null) {
+            allChat = allChat.substring(1);
+        }
 
         String[] strings = {};
-        if (!allChats.isEmpty()) {
-            strings = allChats.split("\\+");
+        if (!allChat.isEmpty()) {
+            strings = allChat.split("\\+");
         }
 
         for (int i = 0; i < strings.length; i++) {
-            boolean beenInListBefore = false;
             if (!strings[i].equals("")) {
-                if (MainPage.friendsList.size() != 0) {
-                    for (ExampleFriend ex : MainPage.friendsList) {
-                        if (ex.getUsername().equals(strings[i])) {
-                            beenInListBefore = true;
-                            break;
-                        }
-                    }
-                    if (!beenInListBefore)
-                        MainPage.chatList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                if (!beenInList(strings[i])) {
+                    MainPage.chatList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                    friendAdapter.notifyDataSetChanged();
+                    friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
                 }
-                friendAdapter.notifyDataSetChanged();
-                friendAdapter.notifyItemChanged(MainPage.chatList.size() - 1);
             }
+
         }
 
+
+
+    }
+    private boolean beenInList(String username) {
+        for (int i = 0; i < MainPage.chatList.size(); i++) {
+            if (MainPage.chatList.get(i).getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
