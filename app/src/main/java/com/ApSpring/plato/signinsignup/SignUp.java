@@ -1,7 +1,9 @@
 package com.ApSpring.plato.signinsignup;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -9,12 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.net.URL;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignUp extends AppCompatActivity {
     EditText inputUserName, inputPassWord, inputPassWordRepeat;
@@ -22,6 +30,10 @@ public class SignUp extends AppCompatActivity {
     private NetworkHandlerThread netThread;
     boolean everyThingIsFine = false;
     boolean usernameIsFine = true;
+    CircleImageView profileImage;
+    FloatingActionButton chooseFromGallery;
+    private static final int PICK_IMAGE=100;
+    Uri imageUrl;
 
 
     @Override
@@ -107,8 +119,31 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+        chooseFromGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
 
 
+    }
+
+    private void openGallery() {
+        Intent gallery=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery,PICK_IMAGE);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK && requestCode==PICK_IMAGE){
+            imageUrl=data.getData();
+            MainActivity.profileImageUri=imageUrl;
+            profileImage.setImageURI(imageUrl);
+
+        }
     }
 
     private TextWatcher signUpTextWatcher = new TextWatcher() {
@@ -158,5 +193,7 @@ public class SignUp extends AppCompatActivity {
         inputPassWord = findViewById(R.id.userPassword);
         inputPassWordRepeat = findViewById(R.id.userPasswordRepeat);
         signUpButton = findViewById(R.id.signUpBtn);
+        chooseFromGallery=findViewById(R.id.choosePhotoFab);
+        profileImage=findViewById(R.id.profile_image_signUp);
     }
 }

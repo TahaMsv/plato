@@ -25,7 +25,7 @@
             android:layout_marginStart="117dp"
             android:layout_marginTop="-9dp"
             android:layout_marginEnd="115dp"
-            android:src="@drawable/profile1" />
+            android:src="@drawable/ic_profile" />
 
         <TextView
             android:id="@+id/usernameTextView"

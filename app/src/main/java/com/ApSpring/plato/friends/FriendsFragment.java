@@ -109,40 +109,58 @@ public class FriendsFragment extends Fragment {
 //        }
 //        MainPage.netThread.start();
         allFriend = MainPage.netThread.getSMessage();
-
+        System.out.println("load friends 112");
 //        try {
 //            Thread.sleep(200);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-
-        allFriend = allFriend.substring(1);
-
+        if (allFriend != null) {
+            allFriend = allFriend.substring(1);
+        }
 
         String[] strings = {};
         if (!allFriend.isEmpty()) {
             strings = allFriend.split("\\+");
         }
 
+//        for (int i = 0; i < strings.length; i++) {
+////            boolean beenInListBefore = false;
+////            if (!strings[i].equals("")) {
+////                if (MainPage.friendsList.size() != 0) {
+////                    for (ExampleFriend ex : MainPage.friendsList) {
+////                        if (ex.getUsername().equals(strings[i])) {
+////                            beenInListBefore = true;
+////                            break;
+////                        }
+////                    }
+////                    if (!beenInListBefore)
+////                        MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+////                }
+////                friendAdapter.notifyDataSetChanged();
+////                friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
+////            }
+////        }
         for (int i = 0; i < strings.length; i++) {
-            boolean beenInListBefore = false;
             if (!strings[i].equals("")) {
-                if (MainPage.friendsList.size() != 0) {
-                    for (ExampleFriend ex : MainPage.friendsList) {
-                        if (ex.getUsername().equals(strings[i])) {
-                            beenInListBefore = true;
-                            break;
-                        }
-                    }
-                    if (!beenInListBefore)
-                        MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                if (!beenInList(strings[i])) {
+                    MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                    friendAdapter.notifyDataSetChanged();
+                    friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
                 }
-                friendAdapter.notifyDataSetChanged();
-                friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
             }
+
         }
 
+    }
 
+    private boolean beenInList(String username) {
+        for (int i = 0; i < MainPage.friendsList.size(); i++) {
+            if (MainPage.friendsList.get(i).getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -154,7 +172,15 @@ public class FriendsFragment extends Fragment {
                 if (friendsUsername.contains("not found")) {
                     Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
                 } else if (friendsUsername.contains("already has been add")) {
-                    Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
+                    String [] friendsUsernameParts=friendsUsername.split("\\+");
+                    if(beenInList(friendsUsernameParts[1])){
+                        Toast.makeText(getActivity(), friendsUsername, Toast.LENGTH_SHORT).show();
+                    }else {
+                        MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsernameParts[1]));
+                        friendAdapter.notifyDataSetChanged();
+                        friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
+                    }
+
                 } else {
                     MainPage.friendsList.add(new ExampleFriend(R.drawable.ic_profile, friendsUsername));
                     friendAdapter.notifyDataSetChanged();

@@ -44,8 +44,9 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
-
-
+        if(MainActivity.profileImageUri!=null){
+            profileImage.setImageURI(MainActivity.profileImageUri);
+        }
 
         changePhoto.setOnClickListener(new View.OnClickListener() {
             @Override

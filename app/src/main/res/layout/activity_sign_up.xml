@@ -7,13 +7,15 @@
     tools:context=".signinsignup.SignUp">
 
     <RelativeLayout
+        android:id="@+id/formContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/formContainer"
-        android:paddingBottom="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:gravity="center">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="212dp"
+        android:layout_marginBottom="106dp"
+        android:gravity="center"
+        android:paddingBottom="100dp">
 
         <EditText
             android:id="@+id/username"
@@ -22,7 +24,6 @@
             android:ems="12"
             android:hint="Your Username"
             android:inputType="textPersonName" />
-
 
 
         <EditText
@@ -60,11 +61,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="89dp"
         android:text="Welcome to plato"
         android:textSize="30dp"
         android:textStyle="normal" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image_signUp"
+        android:layout_width="102dp"
+        android:layout_height="102dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="153dp"
+        android:src="@drawable/ic_profile" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/choosePhotoFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/profile_image"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="247dp"
+        android:layout_marginTop="140dp"
+        android:background="#977E7E"
+        android:clickable="true"
+        android:src="@drawable/ic_photo_camera_black_24dp" />
 
 
 </RelativeLayout>
