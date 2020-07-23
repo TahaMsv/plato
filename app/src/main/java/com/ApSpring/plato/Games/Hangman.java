@@ -1,5 +1,6 @@
 package com.ApSpring.plato.Games;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ApSpring.plato.MainActivity;
+import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
 import java.io.IOException;
@@ -34,16 +37,17 @@ public class Hangman extends AppCompatActivity {
     final String WINNING_MESSAGE = "you won!";
     final String LOSING_MESSAGE = "you lost!";
     Button hangManResetButton;
-
+    NetworkHandlerThread netThread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman);
         initVars();
+        netThread.start();
 
-        InputStream wordInputStream = null;
-        Scanner input = null;
-        String aword = "";
+//        InputStream wordInputStream = null;
+//        Scanner input = null;
+//        String aword = "";
 
         hangManResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,26 +56,26 @@ public class Hangman extends AppCompatActivity {
             }
         });
 
-        try {
-            wordInputStream = getAssets().open("hangman_database");
-            input = new Scanner(wordInputStream);
-            while (input.hasNext()) {
-
-                aword = input.nextLine();
-                hangManListOfWords.add(aword);
-            }
-        } catch (IOException e) {
-            Toast.makeText(this, "e.getMessage()", Toast.LENGTH_SHORT).show();
-        } finally {
-            if (input != null)
-                input.close();
-            try {
-                if (wordInputStream != null)
-                    wordInputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        try {
+//            wordInputStream = getAssets().open("hangman_database");
+//            input = new Scanner(wordInputStream);
+//            while (input.hasNext()) {
+//
+//                aword = input.nextLine();
+//                hangManListOfWords.add(aword);
+//            }
+//        } catch (IOException e) {
+//            Toast.makeText(this, "e.getMessage()", Toast.LENGTH_SHORT).show();
+//        } finally {
+//            if (input != null)
+//                input.close();
+//            try {
+//                if (wordInputStream != null)
+//                    wordInputStream.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         initializeGame();
 
         hangManEdtInput.addTextChangedListener(new TextWatcher() {
@@ -104,6 +108,15 @@ public class Hangman extends AppCompatActivity {
                 ///
                 if (!wordDisplayedString.contains("_")) {
                     txtTriesLeft.setText(WINNING_MESSAGE);
+                    netThread.sendMessage("HangmanWinMsg" + MainActivity.username);
+                    RankedFragmant.userTurn --;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Intent intent = new Intent(this, RankedFragmant.class);
+                    startActivity(intent);
                 }
             }
         } else {
@@ -112,6 +125,14 @@ public class Hangman extends AppCompatActivity {
             if (triedLeft.isEmpty()) {
                 txtTriesLeft.setText(LOSING_MESSAGE);
                 txtWordToBeGuessed.setText(wordToBeGuessed);
+                RankedFragmant.userTurn --;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(this, RankedFragmant.class);
+                startActivity(intent);
             }
         }
 
@@ -130,8 +151,8 @@ public class Hangman extends AppCompatActivity {
     }
 
     public void initializeGame() {
-        Collections.shuffle(hangManListOfWords);
-        wordToBeGuessed = hangManListOfWords.get(0);
+//        Collections.shuffle(hangManListOfWords);
+        wordToBeGuessed = WaitSalon.otherPlayerChosenWord;
         hangManListOfWords.remove(0);
         wordDisplayedCharArr = wordToBeGuessed.toCharArray();
 

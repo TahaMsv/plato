@@ -21,6 +21,7 @@ import com.ApSpring.plato.R;
  */
 public class RankedFragmant extends Fragment {
     public static int userTurn;
+    public static int timesOfPlayingHangman = 2;
     public RankedFragmant() {
         // Required empty public constructor
     }
@@ -46,7 +47,7 @@ public class RankedFragmant extends Fragment {
         startNewHangmanRankMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameFragment.netThread.sendMessage("gameHangmanRank" + MainActivity.username);
+                GameFragment.netThread.sendMessage("gameHangmanRank+" + MainActivity.username + "+" + timesOfPlayingHangman);
             }
         });
 
@@ -76,13 +77,13 @@ public class RankedFragmant extends Fragment {
             Toast.makeText(getActivity(), serverMessage, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), TicTocToe.class);
             startActivity(intent);
-        } else if(serverMessage.startsWith("startHangmanchooser")) {
+        } else if(serverMessage.startsWith("startHangmanChooser")) {
             Toast.makeText(getActivity(), "choose word", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), ChooseWord.class);
             startActivity(intent);
-        } else if (serverMessage.startsWith("startHangmanplayer")) {
+        } else if (serverMessage.startsWith("startHangmanPlayer")) {
             Toast.makeText(getActivity(), "start game", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), Hangman.class);
+            Intent intent = new Intent(getActivity(), WaitSalon.class);
             startActivity(intent);
         }
     }
