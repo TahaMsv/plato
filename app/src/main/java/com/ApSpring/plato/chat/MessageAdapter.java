@@ -47,9 +47,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Chat chat = mChat.get(position);
-        if (chat.getMessage() != null)
+        if (chat.getMessage() != null) {
             holder.showMessage.setText(chat.getMessage());
-        else
+            holder.showTime.setText(chat.getTime());
+        } else
             holder.showMessage.setText("x");
 
     }
@@ -61,11 +62,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView showMessage;
+        TextView showTime;
         ImageView profileImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             showMessage = itemView.findViewById(R.id.show_message);
+            showTime = itemView.findViewById(R.id.timeTextView);
 //            profileImage = itemView.findViewById(R.id.friendsProfileImage);
         }
     }

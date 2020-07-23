@@ -14,6 +14,7 @@ import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChatScreenActivity extends AppCompatActivity {
@@ -48,12 +49,12 @@ public class ChatScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String message = inputMessage.getText().toString().trim();
                 inputMessage.setText("");
-
-
-                Chat chat = new Chat(message, "you", "me");
+                Date date=new Date();
+                String currentTime=date.getHours()+":"+date.getMinutes();
+                Chat chat = new Chat(message, "you", "me",currentTime);
 
                 netThread.sendMessage("chatSenderMessage+" + MainActivity.username + "+"
-                        + friendUsername + "+" + message);
+                        + friendUsername + "+" + message+"+"+currentTime);
 
                 mChat.add(chat);
                 messageAdapter.notifyDataSetChanged();
@@ -73,10 +74,7 @@ public class ChatScreenActivity extends AppCompatActivity {
         String s = "loadMessages+" + friendUsername + "+" + MainActivity.username;
         Thread.sleep(500);
         netThread.sendMessage(s);
-        Thread.sleep(500);
-//        while (netThread.getServerMessage().equals("")) {
-//        }
-//        netThread.start();
+        System.out.println();
         String messages = netThread.getSMessage();
         String[] messageSplit = {};
         if (!messages.equals(" ")) {
@@ -85,14 +83,14 @@ public class ChatScreenActivity extends AppCompatActivity {
         for (int i = 1; i < messageSplit.length; i++) {
             String currentMessage = messageSplit[i];
             if (!currentMessage.isEmpty()) {
-                String[] data = currentMessage.split(","); // data[0]=sender  ,  data[1]=receiver  , data[2]=message
+                String[] data = currentMessage.split(","); // data[0]=sender  ,  data[1]=receiver  , data[2]=message  , data[3]=time
                 if (data[1].equals(friendUsername)) {
-                    Chat chat = new Chat(data[2], "you", "me");
+                    Chat chat = new Chat(data[2], "you", "me",data[3]);
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
                     messageAdapter.notifyItemChanged(mChat.size() - 1);
                 } else {
-                    Chat chat = new Chat(data[2], "me", "you");
+                    Chat chat = new Chat(data[2], "me", "you",data[3]);
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
                     messageAdapter.notifyItemChanged(mChat.size() - 1);
