@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +33,8 @@ public class ChatFragment extends Fragment {
 
     View v;
     private RecyclerView recyclerView;
-
     private FriendsAdapter friendAdapter;
-
+    private SwipeRefreshLayout srl;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -48,14 +48,26 @@ public class ChatFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_chat, container, false);
 
         recyclerView = v.findViewById(R.id.friendsRecyclerView);
-        recyclerView.setAdapter(friendAdapter);
         friendAdapter = new FriendsAdapter(MainPage.chatList, getContext());
+        recyclerView.setAdapter(friendAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        srl=v.findViewById(R.id.refreshChats);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadChats();
+                friendAdapter.notifyDataSetChanged();
+                srl.setRefreshing(false);
+            }
+        });
 
         friendAdapter.setOnItemClickListener(new FriendsAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                String friendsUsername = MainPage.friendsList.get(position).getUsername();
                 Intent intent = new Intent(getActivity(), ChatScreenActivity.class);
+                intent.putExtra("friendUsername", friendsUsername);
                 startActivity(intent);
             }
         });
@@ -69,46 +81,52 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-       // loadChats();
+        loadChats();
     }
+
 
     private void loadChats() {
 
         MainPage.netThread.sendMessage("chatList"+MainActivity.username);
         try {
-            Thread.sleep(200);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String allChats;
-        allChats = MainPage.netThread.getSMessage();
+        String allChat;
+
+        allChat = MainPage.netThread.getSMessage();
 
 
-        allChats = allChats.substring(1);
-
+        if (allChat != null) {
+            allChat = allChat.substring(1);
+        }
 
         String[] strings = {};
-        if (!allChats.isEmpty()) {
-            strings = allChats.split("\\+");
+        if (!allChat.isEmpty()) {
+            strings = allChat.split("\\+");
         }
 
         for (int i = 0; i < strings.length; i++) {
-            boolean beenInListBefore = false;
-            if (!strings[i].equals("")) {
-                if (MainPage.friendsList.size() != 0) {
-                    for (ExampleFriend ex : MainPage.friendsList) {
-                        if (ex.getUsername().equals(strings[i])) {
-                            beenInListBefore = true;
-                            break;
-                        }
-                    }
-                    if (!beenInListBefore)
-                        MainPage.chatList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+            if (!strings[i].equals("") && strings[i]!=null) {
+                if (!beenInList(strings[i])) {
+                    MainPage.chatList.add(new ExampleFriend(R.drawable.ic_profile, strings[i]));
+                    friendAdapter.notifyDataSetChanged();
+                    friendAdapter.notifyItemChanged(MainPage.friendsList.size() - 1);
                 }
-                friendAdapter.notifyDataSetChanged();
-                friendAdapter.notifyItemChanged(MainPage.chatList.size() - 1);
             }
+
         }
 
+
+
+    }
+    private boolean beenInList(String username) {
+        for (int i = 0; i < MainPage.chatList.size(); i++) {
+            if (MainPage.chatList.get(i).getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

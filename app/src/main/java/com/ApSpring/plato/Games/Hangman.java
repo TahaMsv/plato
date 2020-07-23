@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,11 +15,7 @@ import com.ApSpring.plato.MainActivity;
 import com.ApSpring.plato.NetworkHandlerThread;
 import com.ApSpring.plato.R;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class Hangman extends AppCompatActivity {
     TextView txtWordToBeGuessed;
@@ -109,13 +104,13 @@ public class Hangman extends AppCompatActivity {
                 if (!wordDisplayedString.contains("_")) {
                     txtTriesLeft.setText(WINNING_MESSAGE);
                     netThread.sendMessage("HangmanWinMsg" + MainActivity.username);
-                    RankedFragmant.userTurn --;
+                    RankedFragment.userTurn --;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent(this, RankedFragmant.class);
+                    Intent intent = new Intent(this, RankedFragment.class);
                     startActivity(intent);
                 }
             }
@@ -125,13 +120,13 @@ public class Hangman extends AppCompatActivity {
             if (triedLeft.isEmpty()) {
                 txtTriesLeft.setText(LOSING_MESSAGE);
                 txtWordToBeGuessed.setText(wordToBeGuessed);
-                RankedFragmant.userTurn --;
+                RankedFragment.userTurn --;
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(this, RankedFragmant.class);
+                Intent intent = new Intent(this, RankedFragment.class);
                 startActivity(intent);
             }
         }

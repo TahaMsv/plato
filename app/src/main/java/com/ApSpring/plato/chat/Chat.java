@@ -4,11 +4,13 @@ public class Chat {
     private String message;
     private String receiver;
     private String sender;
+    String time;
 
-    public Chat(String message, String receiver, String sender) {
+    public Chat(String message, String receiver, String sender,String time) {
         this.message = message;
         this.receiver = receiver;
         this.sender = sender;
+        this.time=time;
     }
     public Chat(){}
 
@@ -34,5 +36,13 @@ public class Chat {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
     }
 }
