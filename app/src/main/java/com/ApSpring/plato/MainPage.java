@@ -32,6 +32,7 @@ public class MainPage extends AppCompatActivity {
     private CircleImageView profileBtn;
     public static List<ExampleFriend> friendsList;
     public static List<ExampleFriend> chatList;
+    public static List<Player> topPlayerList;
 
 
     private FrameLayout fl;
@@ -54,6 +55,7 @@ public class MainPage extends AppCompatActivity {
         netThread.start();
         friendsList = new ArrayList<>();
         chatList = new ArrayList<>();
+        topPlayerList = new ArrayList<>();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
