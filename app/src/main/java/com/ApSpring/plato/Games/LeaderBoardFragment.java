@@ -45,18 +45,41 @@ public class LeaderBoardFragment extends Fragment {
         XoTopPlayersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),LeaderBoardActivity.class);
-                intent.putExtra("game","XO");
-                startActivity(intent);
+                MainPage.netThread.sendMessage("gameLeaderBoardXO");
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                String serverMessage = MainPage.netThread.getSMessage();
+
+                if (serverMessage.startsWith("top10XO")) {
+                    Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
+                    intent.putExtra("game", "XO");
+                    intent.putExtra("topList", serverMessage);
+                    startActivity(intent);
+                }
             }
         });
 
         HangmanTopPlayersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),LeaderBoardActivity.class);
-                intent.putExtra("game","Hangman");
-                startActivity(intent);
+                MainPage.netThread.sendMessage("gameLeaderBoardHangman");
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                String serverMessage = MainPage.netThread.getSMessage();
+                if (serverMessage.startsWith("top10Hangman")) {
+                    Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
+                    intent.putExtra("game", "Hangman");
+                    intent.putExtra("topList", serverMessage);
+                    startActivity(intent);
+                }
             }
         });
 
