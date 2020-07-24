@@ -64,7 +64,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.MyViewHolder> 
             super(itemView);
             showUsername = itemView.findViewById(R.id.playerName);
             showRank = itemView.findViewById(R.id.rankTextView);
-            showRank=itemView.findViewById(R.id.scoreTextView);
+            showScore=itemView.findViewById(R.id.scoreTextView);
 //            profileImage = itemView.findViewById(R.id.friendsProfileImage);
         }
     }

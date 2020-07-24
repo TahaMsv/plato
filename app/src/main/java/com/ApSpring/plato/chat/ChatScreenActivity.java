@@ -42,6 +42,7 @@ public class ChatScreenActivity extends AppCompatActivity {
         messageAdapter = new MessageAdapter(mChat, this);
         recyclerView.setAdapter(messageAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.scrollToPosition(mChat.size()-1);
         netThread = new NetworkHandlerThread();
         netThread.start();
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +58,7 @@ public class ChatScreenActivity extends AppCompatActivity {
                         + friendUsername + "+" + message+"+"+currentTime);
 
                 mChat.add(chat);
+                recyclerView.scrollToPosition(mChat.size()-1);
                 messageAdapter.notifyDataSetChanged();
                 messageAdapter.notifyItemChanged(mChat.size() - 1);
             }
@@ -89,11 +91,13 @@ public class ChatScreenActivity extends AppCompatActivity {
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
                     messageAdapter.notifyItemChanged(mChat.size() - 1);
+                    recyclerView.scrollToPosition(mChat.size()-1);
                 } else {
                     Chat chat = new Chat(data[2], "me", "you",data[3]);
                     mChat.add(chat);
                     messageAdapter.notifyDataSetChanged();
                     messageAdapter.notifyItemChanged(mChat.size() - 1);
+                    recyclerView.scrollToPosition(mChat.size()-1);
                 }
             }
         }

@@ -16,24 +16,23 @@ public class LeaderBoardActivity extends AppCompatActivity {
     private RankAdapter rankAdapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_board);
 
-        String game=getIntent().getStringExtra("game");
+        String game = getIntent().getStringExtra("game");
         String top = getIntent().getStringExtra("topList");
 
 
-
-
-        if(game.equals("XO")){
-            top = top.substring(7,top.length()-2);
-            String[] peopleTop = top.split("\\+");
-            for (String string:peopleTop) {
-                String[]data = string.split(",");
-                MainPage.topXOPlayerList.add(new Player(data[1], data[0], data[2]));
+        if (game.equals("XO")) {
+            if (MainPage.topXOPlayerList.isEmpty()) {
+                top = top.substring(7, top.length() - 2);
+                String[] peopleTop = top.split("\\+");
+                for (String string : peopleTop) {
+                    String[] data = string.split(",");
+                    MainPage.topXOPlayerList.add(new Player("Score : "+data[1], data[0], data[2]));
+                }
             }
 
 
@@ -42,14 +41,14 @@ public class LeaderBoardActivity extends AppCompatActivity {
             recyclerView.setAdapter(rankAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(LeaderBoardActivity.this));
             loadXoPlayers();
-        }
-        else if(game.equals("Hangman")){
-
-            top = top.substring(10,top.length()-2);
-            String[] peopleTop = top.split("\\+");
-            for (String string:peopleTop) {
-                String[]data = string.split(",");
-                MainPage.topHangmanPlayerList.add(new Player(data[1], data[0], data[2]));
+        } else if (game.equals("Hangman")) {
+            if (MainPage.topHangmanPlayerList.isEmpty()) {
+                top = top.substring(10, top.length() - 2);
+                String[] peopleTop = top.split("\\+");
+                for (String string : peopleTop) {
+                    String[] data = string.split(",");
+                    MainPage.topHangmanPlayerList.add(new Player("Score : "+data[1], data[0], data[2]));
+                }
             }
             recyclerView = findViewById(R.id.rankRecyclerView);
             rankAdapter = new RankAdapter(MainPage.topHangmanPlayerList, LeaderBoardActivity.this);

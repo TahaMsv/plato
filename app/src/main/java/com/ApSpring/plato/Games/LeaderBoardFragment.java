@@ -24,6 +24,8 @@ public class LeaderBoardFragment extends Fragment {
     Button XoTopPlayersButton;
     Button HangmanTopPlayersButton;
 
+    private static final int Xo=1;
+    private static final int Hangman_CODE=2;
     public LeaderBoardFragment() {
         // Required empty public constructor
     }
@@ -58,7 +60,7 @@ public class LeaderBoardFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
                     intent.putExtra("game", "XO");
                     intent.putExtra("topList", serverMessage);
-                    startActivity(intent);
+                    startActivityForResult(intent,Xo);
                 }
             }
         });
@@ -78,7 +80,7 @@ public class LeaderBoardFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
                     intent.putExtra("game", "Hangman");
                     intent.putExtra("topList", serverMessage);
-                    startActivity(intent);
+                    startActivityForResult(intent,Hangman_CODE);
                 }
             }
         });
