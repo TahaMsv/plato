@@ -75,7 +75,7 @@ public class GameFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager){
         Adapter adapter = new Adapter(getChildFragmentManager());
-        adapter.addFragment(new CasualGame(), "Casual");
+        adapter.addFragment(new CasualGame(), "Offline");
         adapter.addFragment(new RankedFragment(), "Ranked");
         adapter.addFragment(new LeaderBoardFragment(), "Leader Board");
         viewPager.setAdapter(adapter);

@@ -97,7 +97,11 @@ public class ChatFragment extends Fragment {
 
         allChat = MainPage.netThread.getSMessage();
 
-
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (allChat != null) {
             allChat = allChat.substring(1);
         }

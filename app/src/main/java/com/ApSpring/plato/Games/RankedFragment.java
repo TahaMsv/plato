@@ -42,7 +42,7 @@ public class RankedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainPage.netThread.sendMessage("gameXORank" + MainActivity.username);
-                readMessageFromServerToStartGame();
+            ///    readMessageFromServerToStartGame();
             }
         });
         startNewHangmanRankMode.setOnClickListener(new View.OnClickListener() {
@@ -52,16 +52,16 @@ public class RankedFragment extends Fragment {
             }
         });
 
-        Thread listenToServer  = new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                while (true){
-                    readMessageFromServerToStartGame();
-                }
-            }
-        };
-        listenToServer.start();
+//        Thread listenToServer  = new Thread(){
+//            @Override
+//            public void run() {
+//                super.run();
+//                while (true){
+//                    readMessageFromServerToStartGame();
+//                }
+//            }
+//        };
+//        listenToServer.start();
 //        readMessageFromServerToStartGame();
 //        Thread listenToServer  = new Thread(){
 //            @Override
