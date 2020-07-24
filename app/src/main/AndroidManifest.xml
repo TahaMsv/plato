@@ -11,7 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Games.LeaderBoardActivity"></activity>
+        <activity android:name=".WelcomeScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Games.LeaderBoardActivity" />
         <activity android:name=".Games.HangmanOffline" />
         <activity android:name=".Games.XOOffline" />
         <activity android:name=".Games.WaitSalonChooser" />
