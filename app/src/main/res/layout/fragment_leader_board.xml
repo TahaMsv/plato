@@ -6,22 +6,20 @@
     tools:context=".Games.LeaderBoardFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <Button
+        android:id="@+id/showXoTopPlayers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:text="Top players"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="193dp"
+        android:text="Xo topPlayers" />
+    <Button
+        android:id="@+id/showHangmanTopPlayers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="48dp"
-        android:id="@+id/rankRecyclerView"/>
-
+        android:layout_marginTop="293dp"
+        android:text="Hangman topPlayers" />
 </RelativeLayout>

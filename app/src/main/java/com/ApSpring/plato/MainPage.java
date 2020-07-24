@@ -4,16 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.ApSpring.plato.Games.GameFragment;
+import com.ApSpring.plato.Games.Player;
 import com.ApSpring.plato.chat.ChatFragment;
 import com.ApSpring.plato.friends.ExampleFriend;
 import com.ApSpring.plato.friends.FriendsFragment;
@@ -32,7 +31,8 @@ public class MainPage extends AppCompatActivity {
     private CircleImageView profileBtn;
     public static List<ExampleFriend> friendsList;
     public static List<ExampleFriend> chatList;
-    public static List<Player> topPlayerList;
+    public static List<Player> topXOPlayerList;
+    public static List<Player> topHangmanPlayerList;
 
 
     private FrameLayout fl;
@@ -55,7 +55,8 @@ public class MainPage extends AppCompatActivity {
         netThread.start();
         friendsList = new ArrayList<>();
         chatList = new ArrayList<>();
-        topPlayerList = new ArrayList<>();
+        topXOPlayerList = new ArrayList<>();
+        topHangmanPlayerList = new ArrayList<>();
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,4 +1,4 @@
-package com.ApSpring.plato;
+package com.ApSpring.plato.Games;
 
 public class Player {
     private String score;

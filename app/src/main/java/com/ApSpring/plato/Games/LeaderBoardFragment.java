@@ -1,5 +1,6 @@
 package com.ApSpring.plato.Games;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,11 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.ApSpring.plato.MainPage;
 import com.ApSpring.plato.R;
-import com.ApSpring.plato.RankAdapter;
-import com.ApSpring.plato.friends.FriendsAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,8 +21,8 @@ import com.ApSpring.plato.friends.FriendsAdapter;
  */
 public class LeaderBoardFragment extends Fragment {
     View v;
-    private RecyclerView recyclerView;
-    private RankAdapter rankAdapter;
+    Button XoTopPlayersButton;
+    Button HangmanTopPlayersButton;
 
     public LeaderBoardFragment() {
         // Required empty public constructor
@@ -39,11 +39,27 @@ public class LeaderBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_leader_board, container, false);
+        XoTopPlayersButton=v.findViewById(R.id.showXoTopPlayers);
+        HangmanTopPlayersButton=v.findViewById(R.id.showHangmanTopPlayers);
 
-        recyclerView = v.findViewById(R.id.rankRecyclerView);
-        rankAdapter = new RankAdapter(MainPage.topPlayerList, getContext());
-        recyclerView.setAdapter(rankAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        XoTopPlayersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),LeaderBoardActivity.class);
+                intent.putExtra("game","XO");
+                startActivity(intent);
+            }
+        });
+
+        HangmanTopPlayersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),LeaderBoardActivity.class);
+                intent.putExtra("game","Hangman");
+                startActivity(intent);
+            }
+        });
+
         
         return v;
     }
@@ -51,9 +67,8 @@ public class LeaderBoardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        loadPlayers();
+
     }
 
-    private void loadPlayers() {
-    }
+
 }
